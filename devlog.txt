@@ -1,0 +1,22 @@
+Site Devlog
+Team JAMRs - Joel Ye, Anthony Chen, Mikhail Kotlik, Richard Wang
+
+Newest Entries at the bottom
+Example Header formatting formatting
+firstL -- TIMESTAMP\n
+jonalfD -- 2016-12-04 14:32
+
+==============================
+ joelY --
+ anthonyC -- 
+ mikhailK --
+ richardW --
+==============================
+
+
+==============================
+ All -- 2016-01-06 22:11
+
+- Finishing up design document
+==============================
+
