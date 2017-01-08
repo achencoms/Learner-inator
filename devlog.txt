@@ -15,8 +15,15 @@ jonalfD -- 2016-12-04 14:32
 
 
 ==============================
- All -- 2016-01-06 22:11
+ All -- 2017-01-06 22:11
 
 - Finishing up design document
 ==============================
 
+==============================
+ joelY -- 2017-01-08 13:48
+
+- project heirarchy skele added
+- Database config set up (may be changed)
+- Temporary algorithm deployed
+==============================
