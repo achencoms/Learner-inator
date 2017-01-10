@@ -27,3 +27,10 @@ jonalfD -- 2016-12-04 14:32
 - Database config set up (may be changed)
 - Temporary algorithm deployed
 ==============================
+
+==============================
+ joelY -- 2017-01-09 20:54
+
+- user account database editing done (ported)
+- beginning database editing of set tables
+==============================
