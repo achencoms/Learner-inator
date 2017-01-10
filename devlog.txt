@@ -34,3 +34,8 @@ jonalfD -- 2016-12-04 14:32
 - user account database editing done (ported)
 - beginning database editing of set tables
 ==============================
+
+==============================
+ joelY -- 2017-01-10 14:49
+- more database editing done
+==============================
