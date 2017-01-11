@@ -1,5 +1,6 @@
 var allCards = document.getElementById("set");
-//set should be loaded on page with all priorities (hidden)
+//set should be loaded on page, in javascript dictionary
+var cardList = [];
 
 //load by lowest priority
 var getNextCard = function(){//variable is a 
