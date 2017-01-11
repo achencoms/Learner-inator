@@ -2,6 +2,26 @@ var allCards = document.getElementById("set");
 //set should be loaded on page, in javascript dictionary
 var cardList = [];
 
+var updateSet = function( e ){
+    
+    var i = document.getElementById("cardData").value;//something
+    var input = {"cardData": i};
+
+    $.ajax({
+	url: "/liveUpdate";
+	type: "POST";
+	data: input;
+	success: function(d){
+	    d = JSON.parse(d);
+	    console.log("Things were recieved: " + d["data"]);
+	}
+    });
+
+
+}
+
+
+
 //load by lowest priority
 var getNextCard = function(){//variable is a 
     var champ = 0;
