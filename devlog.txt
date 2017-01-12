@@ -44,3 +44,8 @@ jonalfD -- 2016-12-04 14:32
  joelY -- 2017-01-10 19:27
 - database editing completed (extra processing pushed outside of base level files)
 ==============================
+
+==============================
+ joelY -- 2017-01-12 14:50
+- temporary algo actually deployed
+==============================
