@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, session, url_for, redirect
-import 
+import hashlib
 
 app = Flask(__name__)
 app.secret_key = "secrets"
@@ -7,12 +7,15 @@ app.secret_key = "secrets"
 #Site Navigation
 @app.route("/")
 def root():
-    #if isLoggedIn():
-    return render_template('home.html')
+    if isLoggedIn():
+        return render_template('home.html')
+    else:
+        return render_template('home.html')
 
-@app.route("/set/")
-def create():
-    #if isLoggedIn():
+@app.route("/set/<setID>")
+def create(setID):
+    if isLoggedIn():
+        
         
 
 #HELPERS-----------------------------------------------------------------------
