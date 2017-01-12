@@ -46,25 +46,30 @@ var getFirstCardData = function(){
 }
 
 //load by next up
-var algoPush = function(){ 
-    //temp: add to back;
+var algoPush = function(response){//0-5 
+    
     removed = dataBank.cardData.splice(0,1);
-    dataBank.push(removed);
-
+    //temp: add to back;
+    dataBank.cardData.push(removed);
+    var pushAmt = algo(response);
+    //put in a size check (if > array length)
+//  dataBank.cardData.splice(updatePriorities(response), 0, removed);
 }
 
-var updatePriorities = function(response){
-    //get currently active card
-    //use a getByID with constraint if that's a thing...
-    //just loop for now
-    for (int i = 0; i < card_dict.length(); i++){
-	if (allCards.childNodes[i].current = true){
-	    allCards.childNodes[i].priority += response;
-	    return;
-	}
-    }
+var algo = function(response){//0-5
+
     
+}
+
+var getNewEF = function(EF, response){//0-5
+    newEF = EF - 0.8 + .28*response-0.02*response*response;
+    if (newEF < 1.3) return 1.3;
+    else return newEF;
 }
 
 //activeCard
 //card_dict is a global variable
+//somewhere, assume default EF is 2.5
+//todo: put a cutoff for the session (you're done)
+
+//algo notes: if I"m understanding this correctly, at the start of a session, first push is 1, second is 6, and then it starts getting scaled... we'll store that locally...
