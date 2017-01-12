@@ -1,8 +1,25 @@
-var allCards = document.getElementById("set");
-//set should be loaded on page, in javascript dictionary
-var cardList = [];
+//Local namespace object
+var dataBank = {};
 
-var updateSet = function( e ){
+dataBank.allCards = document.getElementById("set");
+//set should be loaded on page, in javascript dictionary
+
+var getData = function(){
+
+    $.ajax({
+	url: "/pullData";
+	type: "POST";
+	data: undefined;
+	success: function(d){
+	    dataBank.cardData = JSON.parse(d);
+	}
+    });
+    
+}
+
+getData();
+
+var updateSet = function(){
     
     var i = document.getElementById("cardData").value;//something
     var input = {"cardData": i};
@@ -17,28 +34,30 @@ var updateSet = function( e ){
 	}
     });
 
+}
+
+document.getElementById("next").addEventListener("click", updateSet);//next card
+
+var getFirstCardData = function(){
+    
+    var allData = dataBank.cardData;
+    return allData[0];
 
 }
 
+//load by next up
+var algoPush = function(){ 
+    //temp: add to back;
+    removed = dataBank.cardData.splice(0,1);
+    dataBank.push(removed);
 
-
-//load by lowest priority
-var getNextCard = function(){//variable is a 
-    var champ = 0;
-    for (int i = 1; i < allCards.length(); i++){
-	if (allCards.childNodes[i].priority < allCards.childNodes[champ].priority){
-	    champ = i;
-	}
-    }
-    return champ;
-    //decrement everyone's priority??? time issue
 }
 
 var updatePriorities = function(response){
     //get currently active card
     //use a getByID with constraint if that's a thing...
     //just loop for now
-    for (int i = 0; i < allCards.length(); i++){
+    for (int i = 0; i < card_dict.length(); i++){
 	if (allCards.childNodes[i].current = true){
 	    allCards.childNodes[i].priority += response;
 	    return;
@@ -46,3 +65,6 @@ var updatePriorities = function(response){
     }
     
 }
+
+//activeCard
+//card_dict is a global variable
