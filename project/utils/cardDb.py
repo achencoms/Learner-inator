@@ -94,8 +94,12 @@ def addToLibrary(setID, creatorID, setName, cardData, uID):
     db.close()
     if sel == None:
         return False
+    splitCardData = cardData.split("%%");
+    for card in splitCardData: #initialize EF
+        card = card + "EF2.5"
+    adjustedData = "%%".join(splitCardData)
     sets = sel.split("!!")
-    newSet = [setID, creatorID, setName, cardData]
+    newSet = [setID, setName, adjustedData]
     "///".join(newSet)
     sets.append(newSet)
     "!!".join(sets)

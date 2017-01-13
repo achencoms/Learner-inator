@@ -1,9 +1,6 @@
 //Local namespace object
 var dataBank = {};
 
-dataBank.allCards = document.getElementById("set");
-//set should be loaded on page, in javascript dictionary
-
 var getData = function(){
 
     $.ajax({
@@ -21,8 +18,10 @@ getData();
 
 var updateSet = function(){
     
-    var i = document.getElementById("cardData").value;//something
-    var input = {"cardData": i};
+    //var i = document.getElementById("curCardData").value;//something
+    var i = getFirstCardData();
+
+    var input = {"curCardData": i};
 
     $.ajax({
 	url: "/liveUpdate";
@@ -51,12 +50,18 @@ var algoPush = function(response){//0-5
     removed = dataBank.cardData.splice(0,1);
     //temp: add to back;
     dataBank.cardData.push(removed);
+
+    int newEF = getNewEF(removed[-1], response);
+    removed[-1] = newEF; //update EF;
+
     var pushAmt = algo(response);
     //put in a size check (if > array length)
-//  dataBank.cardData.splice(updatePriorities(response), 0, removed);
+//  dataBank.cardData.splice(pushAmt, 0, removed);
+    
 }
 
 var algo = function(response){//0-5
+
 
     
 }
