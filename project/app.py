@@ -12,9 +12,9 @@ def root():
     else:
         return render_template('home.html')
 
-@app.route("/set/<setID>")
-def create(setID):
-    if isLoggedIn():
+#@app.route("/set/<setID>")
+#def create(setID):
+#    if isLoggedIn():
         
         
 
