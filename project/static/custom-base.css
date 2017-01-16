@@ -1,4 +1,60 @@
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+  padding-top: 40px;
+  /*padding-bottom: 20px;*/
+}
+
+.navbar {
+}
+
+#nav_logo {
+  max-width: 30px;
+  max-height: 30px;
+}
+
+#search-button {
+  margin-left: -4px;
+}
+
 .jumbotron {
-    background-image: url("img/the_class17.jpg");
-    background-size: cover;
+  background-image: url("img/books_apple.jpg");
+  background-size: cover;
+  height: 100vh;
+  margin-bottom: 0px;
+}
+
+.vertical-center {
+    min-height: 100%;
+    /* Fallback for browsers do NOT support vh unit */
+    min-height: 100vh;
+    /* These two lines are counted as one :-)       */
+    display: flex;
+    align-items: center;
+}
+
+.container {
+    text-align: center;
+    color: white;
+}
+
+.container h1 {
+  font-weight: bold;
+  /* Play around with font size here*/
+}
+
+footer {
+  background-color: #31b0d5;
+  color: white;
+  text-align: center;
+}
+
+footer p {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0px;
+
+  /*margin-left: 15%;*/
+  text-align: center;
 }
