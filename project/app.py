@@ -12,6 +12,30 @@ def root():
     else:
         return render_template('home.html')
 
+@app.route("/login", methods = ["POST"])
+def login():
+    #request
+    username = request.form["username"]
+    password = request.form["password"]
+    #auth
+    if isValidAccountInfo(username,password):
+        session['userID']=username
+        #redirect
+    else:
+        return render_template('login.html',message='leemao')
+
+@app.route("/register", methods = ["POST"])
+def register():
+    #request
+    username = request.form["username"]
+    password = request.form["password"]
+    #reg
+    if doesUserExist("username"):
+        return render_template('login.html',message='leemao1')
+    else:
+        registerAccountInfo(username,password)
+        #do something
+
 #@app.route("/set/<setID>")
 #def create(setID):
 #    if isLoggedIn():
