@@ -47,22 +47,26 @@ var getFirstCardData = function(){
 //load by next up
 var algoPush = function(response){//0-5 
     
-    removed = dataBank.cardData.splice(0,1);
+    var removed = dataBank.cardData.splice(0,1);
     //temp: add to back;
     dataBank.cardData.push(removed);
 
-    int newEF = getNewEF(removed[-1], response);
-    removed[-1] = newEF; //update EF;
-
-    var pushAmt = algo(response);
+    var newEF = getNewEF(removed[-1], response);
+    if (response >= 3)
+	removed[-1] = newEF; //update EF;
+    else
+	var pushAmt = algo(response);
     //put in a size check (if > array length)
 //  dataBank.cardData.splice(pushAmt, 0, removed);
     
 }
 
 var algo = function(response){//0-5
-
-
+    if (response < 3) return;
+    else{
+	var 
+    }
+    
     
 }
 
