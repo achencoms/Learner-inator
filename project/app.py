@@ -10,7 +10,7 @@ def root():
     if isLoggedIn():
         return render_template('home.html')
     else:
-        return render_template('home.html')
+        return render_template('index.html')
 
 @app.route("/login", methods = ["POST"])
 def login():
@@ -21,8 +21,9 @@ def login():
     if isValidAccountInfo(username,password):
         session['userID']=username
         #redirect
+        return "true"
     else:
-        return render_template('login.html',message='leemao')
+        return "false"
 
 @app.route("/register", methods = ["POST"])
 def register():
@@ -31,10 +32,11 @@ def register():
     password = request.form["password"]
     #reg
     if doesUserExist("username"):
-        return render_template('login.html',message='leemao1')
+        return "false"
     else:
         registerAccountInfo(username,password)
         #do something
+        return "true"
 
 #@app.route("/set/<setID>")
 #def create(setID):
