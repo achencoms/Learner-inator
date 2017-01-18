@@ -95,8 +95,12 @@ def addToLibrary(setID, creatorID, setName, cardData, uID):
     if sel == None:
         return False
     splitCardData = cardData.split("%%");
-    for card in splitCardData: #initialize EF
+    for card in splitCardData: #initialize EF and Interval
         card = card + "EF2.5"
+        card = card + "ITVL1"
+        card = card + "CDYR"
+        card = card + "CDMN"
+        card = card + "CDDT"#no initial values
     adjustedData = "%%".join(splitCardData)
     sets = sel.split("!!")
     newSet = [setID, setName, adjustedData]

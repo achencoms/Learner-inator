@@ -44,14 +44,28 @@ var getFirstCardData = function(){
 
 }
 
+//interYr:
 //load by next up
+//DATABANK [<CARD>, <CARD>, <CARD>]
+//<CARD>'s are dictionaries
+//<CARD> keys are [data, interCt, cardYr, cardMn, cardDt, cardEF]
+//data is a list [<piece>, <piece>...]
+//cardYr, cardMn, cardDt are scheduled dates
 var algoPush = function(response){//0-5 
     
     var removed = dataBank.cardData.splice(0,1);
     //temp: add to back;
     dataBank.cardData.push(removed);
+    
+    if (interCt == 1){
+	removed[cardYr] = 
+    } 
+    var cardYr = ;
+    var cardMn = ;
+    var cardDt = removed;
+    var cardEF = removed[-1];
 
-    var newEF = getNewEF(removed[-1], response);
+    var newEF = getNewEF(cardEF, response);
     if (response >= 3)
 	removed[-1] = newEF; //update EF;
     else
