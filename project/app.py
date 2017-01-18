@@ -21,9 +21,9 @@ def login():
     if isValidAccountInfo(username,password):
         session['userID']=username
         #redirect
-        return redirect(url_for("root"))
+        return "true"
     else:
-        return render_template('index.html')
+        return "false"
 
 @app.route("/register", methods = ["POST"])
 def register():
@@ -32,11 +32,11 @@ def register():
     password = request.form["password"]
     #reg
     if doesUserExist("username"):
-        return render_template('index.html')
+        return "false"
     else:
         registerAccountInfo(username,password)
         #do something
-        return redirect(url_for("root"))
+        return "true"
 
 #@app.route("/set/<setID>")
 #def create(setID):
