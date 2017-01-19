@@ -1,5 +1,15 @@
 /* Move down content because we have a fixed navbar that is 50px tall */
 
+/*Color Palette 1: https://coolors.co/bfd7ea-91aec1-508ca4-0a8754-004f2d*/
+/*Color Palette 2: https://coolors.co/60492c-f9ebe0-208aae-2a6b4b-0d2149*/
+/*Color Palette 3: https://coolors.co/c33c54-37718e-8ee3ef-2a6b4b-aef3e7*/
+/*Color Palette 4: https://coolors.co/cbd4c2-fffcff-247ba0-2a6b4b-c3b299*/
+
+
+.btn-primary {
+  /*background-color: #C33C54;*/
+}
+
 body {
     padding-top: 40px;
     /*padding-bottom: 20px;*/

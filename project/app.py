@@ -4,7 +4,11 @@ import hashlib
 app = Flask(__name__)
 app.secret_key = "secrets"
 
-#Site Navigation
+# Site Navigation
+
+# NOTE: ALL ROUTES NEED TO END WITH / (ex. /login/ instead of /login)
+
+
 @app.route("/")
 def root():
     if isLoggedIn():
@@ -12,50 +16,55 @@ def root():
     else:
         return render_template('index.html')
 
-@app.route("/login", methods = ["POST"])
+
+@app.route("/login/", methods=["POST"])
 def login():
-    #request
-    print request.form
-    return "false"
-    """
+    # request
     username = request.form["username"]
     password = request.form["password"]
-    #auth
-    if isValidAccountInfo(username,password):
-        session['userID']=username
-        #redirect
+
+    # auth
+    return "false"
+    # PLEASE MAKE THIS FUNCTION FOR LOGIN TO WORK
+    if isValidAccountInfo(username, password):
+        session['userID'] = username
+        # redirect
         return "true"
     else:
         return "false"
-    """
 
-@app.route("/register", methods = ["POST"])
+
+@app.route("/register/", methods=["POST"])
 def register():
-    #request
+    # request
     username = request.form["username"]
     password = request.form["password"]
-    #reg
+
+    return "false"
+    # reg
+    # PLEASE MAKE THESE FUNCTIONS FOR REGISTRATION TO WORK
     if doesUserExist("username"):
         return "false"
     else:
-        registerAccountInfo(username,password)
-        #do something
+        registerAccountInfo(username, password)
+        # do something (aka proceed to sign person in)
         return "true"
 
-#@app.route("/set/<setID>")
-#def create(setID):
+# @app.route("/set/<setID>/")
+# def create(setID):
 #    if isLoggedIn():
 
 
+# HELPERS-----------------------------------------------------------------------
 
-#HELPERS-----------------------------------------------------------------------
-
-#Login Helpers
+# Login Helpers
 def isLoggedIn():
     return "userID" in session
 
+
 def getUserID():
     return session["userID"]
+
 
 def logout():
     session.pop('userID')
