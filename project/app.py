@@ -15,6 +15,9 @@ def root():
 @app.route("/login", methods = ["POST"])
 def login():
     #request
+    print request.form
+    return "false"
+    """
     username = request.form["username"]
     password = request.form["password"]
     #auth
@@ -24,6 +27,7 @@ def login():
         return "true"
     else:
         return "false"
+    """
 
 @app.route("/register", methods = ["POST"])
 def register():
@@ -41,8 +45,8 @@ def register():
 #@app.route("/set/<setID>")
 #def create(setID):
 #    if isLoggedIn():
-        
-        
+
+
 
 #HELPERS-----------------------------------------------------------------------
 
