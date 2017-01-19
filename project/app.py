@@ -12,10 +12,14 @@ app.secret_key = "secrets"
 
 @app.route("/")
 def root():
+    return render_template('index.html')
+    # Turn this back on once /home/ is working
+    """
     if isLoggedIn():
         return render_template('home.html')
     else:
         return render_template('index.html')
+    """
 
 
 @app.route("/login/", methods=["POST"])
@@ -26,14 +30,6 @@ def login():
     #auth
     if userDb.isValidAccountInfo(username,password):
         session['userID']=username
-        #redirect
-
-    # auth
-    return "false"
-    # PLEASE MAKE THIS FUNCTION FOR LOGIN TO WORK
-    if isValidAccountInfo(username, password):
-        session['userID'] = username
-        # redirect
         return "true"
     else:
         return "false"
@@ -49,15 +45,9 @@ def register():
         return "false"
     else:
         userDb.registerAccountInfo(username,password)
-        #do something
-    return "false"
-    # reg
-    # PLEASE MAKE THESE FUNCTIONS FOR REGISTRATION TO WORK
-    if doesUserExist("username"):
-        return "false"
-    else:
-        # do something (aka proceed to sign person in)
+        session['userID'] = username
         return "true"
+
 
 # @app.route("/set/<setID>/")
 # def create(setID):

@@ -38,4 +38,34 @@ $(document).ready(function(){
       }
     });
   });
+  $("#loginClose").click(function(e) {
+    $("#loginForm").find("input[type=text], input[type=password]").val("");
+    $("#loginStatus").html('');
+  });
+  $("#registerClose").click(function(e) {
+    $("#registerForm").find("input[type=text], input[type=password]").val("");
+    $("#registerStatus").html('');
+  });
+  /* Validate password */
+  $("#registerConfirmPassword").change(function(e) {
+      icon = $("#confirmPasswordIcon");
+      if (! icon.hasClass("glyphicon")) {
+	  icon.addClass("glyphicon");
+      }
+      /* Check that password & confirm password not empty, then do the rest */
+      /* debug to see why wrong passwords are getting checkmarks */
+      /* get icon on one line */
+      /* genetic cars? */
+      if ($("#registerPassword").value != $("registerConfirmPassword").value) {
+	  if (icon.hasClass("glyphicon-ok")) {
+	      icon.removeClass("glyphicon-ok");
+	  }
+	  icon.addClass("glyphicon-remove");
+      } else {
+	  if (icon.hasClass("glyphicon-remove")) {
+	      icon.removeClass("glyphicon-remove");
+	  }
+	  icon.addClass("glyphicon-ok");
+      }
+  });
 });

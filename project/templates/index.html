@@ -60,7 +60,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                    <button id="loginClose" type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
                     <h3 class="modal-title" id="loginModalLabel">Log in</h3>
                 </div>
                 <div class="modal-body">
@@ -69,12 +69,12 @@
                     </div>
                     <form id ="loginForm" action="/login/" method="post">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="loginModalUsername" name="username" placeholder="Type your username" required>
-                            <label for="loginModalUsername">Username</label>
+                            <input type="text" class="form-control" id="loginlUsername" name="username" placeholder="Type your username" required>
+                            <label for="loginUsername">Username</label>
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" id="loginModalPassword" name="password" placeholder="Type your password" required>
-                            <label for="loginModalPassword">Password</label>
+                            <input type="password" class="form-control" id="loginPassword" name="password" placeholder="Type your password" required>
+                            <label for="loginPassword">Password</label>
                         </div>
                         <button id="loginFormButton" type="submit" class="btn btn-default">Submit</button>
                     </form>
@@ -89,7 +89,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                    <button id="registerClose" type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
                     <h3 class="modal-title" id="registerModalLabel">Sign Up</h3>
                 </div>
                 <div class="modal-body">
@@ -98,12 +98,16 @@
                     </div>
                     <form id ="registerForm" action="/register/" method="post">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="registerModalUsername" name="username" placeholder="Username" required>
-                            <label for="registerModalUsername">Username</label>
+                            <input type="text" class="form-control" id="registerUsername" name="username" placeholder="Username" required>
+                            <label for="registerUsername">Username</label>
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" id="registerModalPassword" name="password" placeholder="Password" required>
-                            <label for="registerModalPassword">Password</label>
+                            <input type="password" class="form-control" id="registerPassword" name="password" placeholder="Password" required>
+                            <label for="registerPassword">Password</label>
+                        </div>
+                        <div class="form-group">
+                           <span><input type="password" class="form-control" id="registerConfirmPassword" name="confirmPassword" placeholder="Enter password again" required><span id="confirmPasswordIcon"></span></span>
+                            <label for="registerConfirmPassword">Confirm Password</label>
                         </div>
                         <button id="registerFormButton" type="submit" class="btn btn-default">Submit</button>
                     </form>
