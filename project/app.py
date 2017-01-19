@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, session, url_for, redirect
+from utils import userDb
 import hashlib
 
 app = Flask(__name__)
@@ -22,6 +23,10 @@ def login():
     # request
     username = request.form["username"]
     password = request.form["password"]
+    #auth
+    if userDb.isValidAccountInfo(username,password):
+        session['userID']=username
+        #redirect
 
     # auth
     return "false"
@@ -39,14 +44,18 @@ def register():
     # request
     username = request.form["username"]
     password = request.form["password"]
-
+    #reg
+    if userDb.doesUserExist("username"):
+        return "false"
+    else:
+        userDb.registerAccountInfo(username,password)
+        #do something
     return "false"
     # reg
     # PLEASE MAKE THESE FUNCTIONS FOR REGISTRATION TO WORK
     if doesUserExist("username"):
         return "false"
     else:
-        registerAccountInfo(username, password)
         # do something (aka proceed to sign person in)
         return "true"
 
