@@ -18,6 +18,7 @@ $(document).ready(function() {
             }
         });
     });
+
     $("#registerForm").submit(function(e) {
         e.preventDefault();
         $.ajax({
@@ -37,40 +38,94 @@ $(document).ready(function() {
             }
         });
     });
+
     $("#loginClose").click(function(e) {
         $("#loginForm").find("input[type=text], input[type=password]").val("");
         $("#loginStatus").html('');
     });
+
     $("#registerClose").click(function(e) {
         $("#registerForm").find("input[type=text], input[type=password]").val("");
         $("#registerStatus").html('');
-        $("#confirmPasswordIcon").removeClass("glyphicon");
-        $("#confirmPasswordIcon").css("color", "");
+        clearValidateIcon();
     });
+
     /* Validate password */
-    $("#registerConfirmPassword").change(function(e) {
-        if ($("#registerPassword").val() !== "" && $("#registerConfirmPassword").val() !== "") {
+    function validatePassword() {
+        if ($("#registerConfirmPassword").val() !== "") {
+            group = $("#confirmPasswordGroup");
             icon = $("#confirmPasswordIcon");
-            if (!icon.hasClass("glyphicon")) {
-                icon.addClass("glyphicon");
+            if (!group.hasClass("has-feedback")) {
+                group.addClass("has-feedback");
             }
-            /* Check that password & confirm password not empty, then do the rest */
             /* debug to see why wrong passwords are getting checkmarks */
             /* get icon on one line */
             /* genetic cars? */
-            if ($("#registerPassword").val() !== $("registerConfirmPassword").val()) {
+            if ($("#registerPassword").val() == "" || $("#registerConfirmPassword").val() != $("#registerPassword").val()) {
+                console.log(escape($("#registerPassword").val()));
+                console.log(escape($("#registerConfirmPassword").val()));
+                console.log($("#registerConfirmPassword").val() == $("#registerPassword").val());
+                /* Checked that passwords dont match */
+                if (group.hasClass("has-success")) {
+                    group.removeClass("has-success");
+                }
                 if (icon.hasClass("glyphicon-ok")) {
                     icon.removeClass("glyphicon-ok");
                 }
+                group.addClass("has-error");
                 icon.addClass("glyphicon-remove");
-                icon.css('color', '#cc0000');
+                /* Icon formatted, time to show it */
+                if (icon.hasClass("hidden")) {
+                    icon.removeClass("hidden");
+                }
+                /*icon.css('color', '#cc0000');*/
             } else {
+                /* Checked that passwords do match */
+                if (group.hasClass("has-error")) {
+                    group.removeClass("has-error");
+                }
                 if (icon.hasClass("glyphicon-remove")) {
                     icon.removeClass("glyphicon-remove");
                 }
+                group.addClass("has-success");
                 icon.addClass("glyphicon-ok");
-                icon.css('color', '#00ff4d');
+                /* Icon formatted, time to show it */
+                if (icon.hasClass("hidden")) {
+                    icon.removeClass("hidden");
+                }
+                /* icon.css('color', '#00ff4d'); */
             }
+        } else {
+            clearValidateIcon();
         }
+    }
+
+    function clearValidateIcon() {
+        group = $("#confirmPasswordGroup");
+        icon = $("#confirmPasswordIcon");
+        if (group.hasClass("has-feedback")) {
+            group.removeClass("has-feedback");
+        }
+        if (group.hasClass("has-error")) {
+            group.removeClass("has-error");
+        }
+        if (group.hasClass("has-success")) {
+            group.removeClass("has-success");
+        }
+        if (icon.hasClass("glyphicon-ok")) {
+            icon.removeClass("glyphicon-ok");
+        }
+        if (icon.hasClass("glyphicon-remove")) {
+            icon.removeClass("glyphicon-remove");
+        }
+        icon.addClass("hidden");
+    }
+
+    $("#registerConfirmPassword").keyup(function(e) {
+        validatePassword();
+    });
+
+    $("#registerPassword").keyup(function(e) {
+        validatePassword();
     });
 });
