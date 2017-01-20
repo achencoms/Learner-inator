@@ -67,7 +67,7 @@
                     <div id="loginStatus">
 
                     </div>
-                    <form id ="loginForm" action="/login/" method="post">
+                    <form id="loginForm" action="/login/" method="post">
                         <div class="form-group">
                             <input type="text" class="form-control" id="loginlUsername" name="username" placeholder="Type your username" required>
                             <label for="loginUsername">Username</label>
@@ -96,7 +96,7 @@
                     <div id="registerStatus">
 
                     </div>
-                    <form id ="registerForm" action="/register/" method="post">
+                    <form id="registerForm" action="/register/" method="post">
                         <div class="form-group">
                             <input type="text" class="form-control" id="registerUsername" name="username" placeholder="Username" required>
                             <label for="registerUsername">Username</label>
@@ -106,7 +106,8 @@
                             <label for="registerPassword">Password</label>
                         </div>
                         <div class="form-group">
-                           <span><input type="password" class="form-control" id="registerConfirmPassword" name="confirmPassword" placeholder="Enter password again" required><span id="confirmPasswordIcon"></span></span>
+                            <!-- <span><input type="password" class="form-control" id="registerConfirmPassword" name="confirmPassword" placeholder="Enter password again" required><span id="confirmPasswordIcon"></span></span> -->
+                            <input type="password" class="form-control" id="registerConfirmPassword" name="confirmPassword" placeholder="Enter password again" required>
                             <label for="registerConfirmPassword">Confirm Password</label>
                         </div>
                         <button id="registerFormButton" type="submit" class="btn btn-default">Submit</button>
@@ -123,42 +124,42 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-                    <h3 class="modal-title" id="getStartedModalLabel">Log in</h3>
-                </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                            <h3 class="modal-title" id="getStartedModalLabel">Log in</h3>
+                        </div>
+                        <div class="modal-body">
+                            ...
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron vertical-center">
-        <div class="container">
-            <h1>Long-term learning made quick.</h1>
-            <p>
-                Memorize anything with extremely customizable flashcards, powered by the best flashcard algorithm ever.
-            </p>
-            <a class="btn btn-primary btn-lg" href="#" data-toggle="modal" data-target="#getStartedModal" role="button">Learn more &raquo;</a>
+        <!-- Main jumbotron for a primary marketing message or call to action -->
+        <div class="jumbotron vertical-center">
+            <div class="container">
+                <h1>Long-term learning made quick.</h1>
+                <p>
+                    Memorize anything with extremely customizable flashcards, powered by the best flashcard algorithm ever.
+                </p>
+                <a class="btn btn-primary btn-lg" href="#" data-toggle="modal" data-target="#getStartedModal" role="button">Learn more &raquo;</a>
+            </div>
         </div>
-    </div>
 
-    <footer class="navbar navbar-inverse">
-        <div class="container">
-            <span id="copyright">&copy; 2017 The JAMRs</span>
-        </div>
-    </footer>
+        <footer class="navbar navbar-inverse">
+            <div class="container">
+                <span id="copyright">&copy; 2017 The JAMRs</span>
+            </div>
+        </footer>
 
-    <!-- Bootstrap core JavaScript
+        <!-- Bootstrap core JavaScript
     ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="../static/bootstrap/js/bootstrap.min.js"></script>
-    <script src="../static/custom-index.js"></script>
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="../static/bootstrap/js/bootstrap.min.js"></script>
+        <script src="../static/custom-index.js"></script>
 </body>
 
 </html>
