@@ -2,7 +2,7 @@
 var dataBank = {};
 
 var getData = function(){
-
+    //on load, store by date. randomize within
     $.ajax({
 	url: "/pullData";
 	type: "POST";
@@ -18,9 +18,8 @@ getData();
 
 var updateSet = function(){
     
-    //var i = document.getElementById("curCardData").value;//something
     var i = getFirstCardData();
-
+    
     var input = {"curCardData": i};
 
     $.ajax({
@@ -48,23 +47,41 @@ var getFirstCardData = function(){
 //load by next up
 //DATABANK [<CARD>, <CARD>, <CARD>]
 //<CARD>'s are dictionaries
-//<CARD> keys are [data, interCt, cardYr, cardMn, cardDt, cardEF]
+//<CARD> keys are [data, interCt, interval, cardYr, cardMn, cardDt, cardEF]
 //data is a list [<piece>, <piece>...]
 //cardYr, cardMn, cardDt are scheduled dates
-var algoPush = function(response){//0-5 
+var algoPush = function(response){//the last card was just finished (and it's at the front of the deck), requesting new one... 
     
-    var removed = dataBank.cardData.splice(0,1);
+    //update last card. return new card and verify.
+    var removed = dataBank.cardData[0];
+    var nxtCard = dataBank.cardData[1];
+
     //temp: add to back;
-    dataBank.cardData.push(removed);
+    //dataBank.cardData.push(removed);
     
+    var interCt = removed[1];
+    var interval = removed[2];
+    if (response < 3){
+	interCt = 1;
+    }
+    if (response < 4){
+	dataBank.cardData.push(removed);
+    }
     if (interCt == 1){
 	removed[cardYr] = 
     } 
-    var cardYr = ;
-    var cardMn = ;
-    var cardDt = removed;
-    var cardEF = removed[-1];
-
+    //assuming we're supposed to do it on the given day
+    //next card
+    var cardYr = nxtCard[3];
+    var cardMn = nxtCard[4];
+    var cardDt = nxtCard[5];
+    var cardEF = nxtCard[6];
+    if (cardYr <= getFullYear() && cardMn <= getMonth() && cardDt <= getDate()){
+	return nxtCard[0]; //data
+    }
+    else {
+	return false; //we're done. go home
+    }
     var newEF = getNewEF(cardEF, response);
     if (response >= 3)
 	removed[-1] = newEF; //update EF;
@@ -72,6 +89,7 @@ var algoPush = function(response){//0-5
 	var pushAmt = algo(response);
     //put in a size check (if > array length)
 //  dataBank.cardData.splice(pushAmt, 0, removed);
+    //add interval when pushed into backend.
     
 }
 

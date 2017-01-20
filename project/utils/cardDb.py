@@ -97,7 +97,8 @@ def addToLibrary(setID, creatorID, setName, cardData, uID):
     splitCardData = cardData.split("%%");
     for card in splitCardData: #initialize EF and Interval
         card = card + "EF2.5"
-        card = card + "ITVL1"
+        card = card + "ITCT1"        
+        card = card + "ITVL"
         card = card + "CDYR"
         card = card + "CDMN"
         card = card + "CDDT"#no initial values
