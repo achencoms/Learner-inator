@@ -96,12 +96,12 @@ def addToLibrary(setID, creatorID, setName, cardData, uID):
         return False
     splitCardData = cardData.split("%%");
     for card in splitCardData: #initialize EF and Interval
-        card = card + "EF2.5"
-        card = card + "ITCT1"        
-        card = card + "ITVL"
-        card = card + "CDYR"
-        card = card + "CDMN"
-        card = card + "CDDT"#no initial values
+        card = card + "||2.5"#EF
+        card = card + "||1"#ITCT        
+        card = card + "||-1"#ITVL
+        card = card + "||9999"#CDYR
+        card = card + "||13"#CDMN
+        card = card + "||32"#no initial values
     adjustedData = "%%".join(splitCardData)
     sets = sel.split("!!")
     newSet = [setID, setName, adjustedData]
@@ -120,12 +120,12 @@ def downloadPublicSet(setID, setName, uID):
     setName = sel[0]
     splitCardData = cardData.split("%%");
     for card in splitCardData: #initialize EF and Interval
-        card = card + "EF2.5"
-        card = card + "ITCT1"        
-        card = card + "ITVL"
-        card = card + "CDYR"
-        card = card + "CDMN"
-        card = card + "CDDT"#no initial values
+        card = card + "||2.5"#EF
+        card = card + "||1"#ITCT        
+        card = card + "||-1"#ITVL
+        card = card + "||9999"#CDYR
+        card = card + "||13"#CDMN
+        card = card + "||32"#no initial values
     initializedData = "%%".join(splitCardData)
     cmd = "SELECT * FROM PrivateCards WHERE uID = %d;"%(uID)
     sel = c.execute(cmd).fetchone()
