@@ -10,7 +10,7 @@
 		<div class="card" align="center">
 			<img id="picture" class="card-img-top" src="">
 			<div class="card-block" id ="editmode">
-				<input type="text" id="title" placeholder="enter title or question - this will be the front"><hr>
+				<input type="text" id="title" placeholder="enter title or question - this will be the front">
 				<textarea id="description" placeholder="enter description - this will be the back"></textarea>
 				<img id="picture" class="card-img-top" src="">
 			</div>
@@ -19,8 +19,8 @@
 		<div class ="container-fluid" style="position: absolute; top: 90%;">
 		<input type="text" placeholder="Put in the link of the picture you want" id="mage">
 		<button id = "img"> Add an image</button>
-		<button id ="next"> Next card </button>
-		<button id = "front">Turn the flashcard</button>
+		<button class="btn btn-secondary" id ="next"> Next card </button>
+		<button class="btn btn-secondary" id = "front">Turn the flashcard</button>
 		<button class="btn btn-primary" id ="save"> Save</button>
 		</div>
 		<script src ={{url_for('static', filename='rend.js')}}></script>

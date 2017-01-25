@@ -112,12 +112,14 @@ def addToLibrary(setID, creatorID, setName, cardData, uID):
 def downloadPublicSet(setID, setName, uID):
     db = sqlite3.connect("data/main.db")
     c = db.cursor()
-    cmd = "SELECT * FROM PublicCards WHERE setID = %d;"%(uID)
+    cmd = "SELECT * FROM PublicSets WHERE setID = %d;"%(setID)
     sel = c.execute(cmd).fetchone()
+    print sel
     if sel == None:
         return False
-    cardData = sel[2]
-    setName = sel[0]
+    cardData = sel[3]
+    print cardData
+    setName = sel[2]
     splitCardData = cardData.split("%%");
     for card in splitCardData: #initialize EF and Interval
         card = card + "||2.5"#EF

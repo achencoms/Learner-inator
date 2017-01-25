@@ -12,6 +12,7 @@ app.secret_key = "secrets"
 
 @app.route("/")
 def root():
+    #print cardDb.downloadPublicSet(1, "batter", 30)
     return render_template('index.html')
     # Turn this back on once /home/ is working
     """
@@ -68,7 +69,6 @@ def pullData(setID):
         dict = {}
         dict["setName"] = tuple[0]
         dict["setID"] = tuple[1]
-
         #<setData> = <cardData>%%<cardData>%%<>...
         #<cardData> : <content>||<content>||interCt||interval||cardYr||...
         #<content> : <piece>**<piece>**..

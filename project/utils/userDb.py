@@ -17,7 +17,7 @@ def getUserID(uN):
     cmd = "SELECT * FROM Users WHERE username = '%s';"%(uN)
     sel = c.execute(cmd).fetchone()
     db.close()
-    return sel[2]
+    return sel[0]
 
 def registerAccountInfo(uN, hP):
     db = sqlite3.connect("data/main.db")
