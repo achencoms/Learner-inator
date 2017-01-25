@@ -29,7 +29,7 @@ def login():
     password = request.form["password"]
     #auth
     if userDb.isValidAccountInfo(username,password):
-        session['userID']=username
+        session['userID'] = userDb.getUserID(username)
         return "true"
     else:
         return "false"
@@ -45,7 +45,7 @@ def register():
         return "false"
     else:
         userDb.registerAccountInfo(username,password)
-        session['userID'] = username
+        session['userID'] = userDb.getUserID(username)
         return "true"
 
 
