@@ -1,45 +1,78 @@
 //Local namespace object
 var dataBank = {};
 
-var getData = function(){
+var isReady = function(card){
+    
+    cardYr = card[cardYr];
+    cardMn = card[cardMn];
+    cardDt = card[cardDt];
+    
+    if (cardYr < getFullYear()) return true;
+    else if (cardYr == getFullYear()){
+	if (cardMn < getMonth()) return true;
+	else if (cardMn == getMonth())
+	    if (cardDt <= getDate()) return true;
+    }
+    return false;
+
+} 
+
+//NOT FINISHED
+var initializeSet = function(setID){
+    //organize by date
     //on load, store by date. randomize within
     $.ajax({
-	url: "/pullData";
+	url: "/pullData/" + toString(setID);
 	type: "POST";
 	data: undefined;
 	success: function(d){
-	    dataBank.cardData = JSON.parse(d);
+	    dataBank[active] = JSON.parse(d);
 	}
     });
+
+    dataBank[inactive] = [];
     
+    for (var i = 0; i < dataBank[active].length; i++){
+	var card = dataBank[active][i];
+	if (!isReady(card)){
+	    dataBank[inactive].push(card);
+	}
+    }
+
+    if (dataBank[active].length == 0) return false; 
+    //do the randomize thing here
+    //randomize order 
 }
 
-getData();
 
-var updateSet = function(){
+initializeSet();
+
+var updateSet = function(response){
     
-    var i = getFirstCardData();
-    
-    var input = {"curCardData": i};
+    algoPush(response);
+
+    var toServer = dataBank[active].concat(dataBank[inactive]);
 
     $.ajax({
 	url: "/liveUpdate";
 	type: "POST";
-	data: input;
+	data: toServer;
 	success: function(d){
 	    d = JSON.parse(d);
 	    console.log("Things were recieved: " + d["data"]);
 	}
     });
 
+    return getFirstCardData;
 }
 
 document.getElementById("next").addEventListener("click", updateSet);//next card
 
 var getFirstCardData = function(){
     
-    var allData = dataBank.cardData;
-    return allData[0];
+    var allData = dataBank[active];
+    if (allData.length == 0) return false;
+    else return allData[0];
 
 }
 
@@ -53,52 +86,53 @@ var getFirstCardData = function(){
 var algoPush = function(response){//the last card was just finished (and it's at the front of the deck), requesting new one... 
     
     //update last card. return new card and verify.
-    var removed = dataBank.cardData[0];
-    var nxtCard = dataBank.cardData[1];
-
-    //temp: add to back;
-    //dataBank.cardData.push(removed);
+    var removed = dataBank[active].shift();
+    var interCt = removed[interCt];
+    var interval = removed[interval];
+    var cardEF = removed[EF];
     
-    var interCt = removed[1];
-    var interval = removed[2];
     if (response < 3){
 	interCt = 1;
     }
-    if (response < 4){
-	dataBank.cardData.push(removed);
+    else {
+	if (interCt == 1){
+	    interval = 1; 
+	}
+	else {
+	    interval = 6;
+	}
+	else {
+	    interval = Math.ceil(interval * cardEF);
+	}
+	interCt++;
+	cardEF = getNewEF(cardEF, response);
+	
     }
-    if (interCt == 1){
-	removed[cardYr] = 
-    } 
-    //assuming we're supposed to do it on the given day
+
+    
+    if (response < 4){
+	dataBank[active].push(removed);
+    }
+    
+    else{
+	
+	var days = interval; // Days you want to subtract
+	var date = new Date();
+	var last = new Date(date.getTime() + (days * 24 * 60 * 60 * 1000));
+	removed[cardDt] =last.getDate();
+	removed[cardMn] =last.getMonth();
+	removed[cardYr] =last.getFullYear();
+	dataBank[inactive].push(removed);//get interval
+	
+    }
+    
     //next card
-    var cardYr = nxtCard[3];
-    var cardMn = nxtCard[4];
-    var cardDt = nxtCard[5];
-    var cardEF = nxtCard[6];
-    if (cardYr <= getFullYear() && cardMn <= getMonth() && cardDt <= getDate()){
-	return nxtCard[0]; //data
+    if (dataBank[active].length == 0){
+	return false;
     }
     else {
-	return false; //we're done. go home
+	return rd = dataBank[active][0];
     }
-    var newEF = getNewEF(cardEF, response);
-    if (response >= 3)
-	removed[-1] = newEF; //update EF;
-    else
-	var pushAmt = algo(response);
-    //put in a size check (if > array length)
-//  dataBank.cardData.splice(pushAmt, 0, removed);
-    //add interval when pushed into backend.
-    
-}
-
-var algo = function(response){//0-5
-    if (response < 3) return;
-    else{
-	var 
-    }
-    
     
 }
 

@@ -1,4 +1,0 @@
-.jumbotron {
-    background-image: url("../static/img/the_class17.jpg");
-    background-size: cover;
-}
