@@ -118,7 +118,6 @@ def downloadPublicSet(setID, setName, uID):
         return False
     cardData = sel[2]
     setName = sel[0]
-    customID = str(setID) + "&" + str(uID)
     splitCardData = cardData.split("%%");
     for card in splitCardData: #initialize EF and Interval
         card = card + "EF2.5"
@@ -131,7 +130,7 @@ def downloadPublicSet(setID, setName, uID):
     cmd = "SELECT * FROM PrivateCards WHERE uID = %d;"%(uID)
     sel = c.execute(cmd).fetchone()
     sets = sel.split("!!")
-    newSet = [customID, setName, initializedData]
+    newSet = [setID, setName, initializedData]
     "///".join(newSet)
     sets.append(newSet)
     "!!".join(sets)
