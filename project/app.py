@@ -12,7 +12,6 @@ app.secret_key = "secrets"
 
 @app.route("/")
 def root():
-    cardDb.addSet(99999998,"set","example");
     return render_template('index.html')
     # Turn this back on once /home/ is working
     """
