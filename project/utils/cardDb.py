@@ -17,10 +17,10 @@ def getAllSets():
     return ret
 #should probably be optimized...
 
-def addSet(setID, creatorID, setName, cardData): #presuming card data is a string for now
+def addSet(creatorID, setName, cardData): #presuming card data is a string for now
     db = sqlite3.connect("data/main.db")
     c = db.cursor()
-    addSet = "INSERT INTO PublicSets VALUES(%d, %d,'%s','%s');"%(setID, creatorID, setName, cardData)
+    addSet = "INSERT INTO PublicSets (creatorID, setName, cardData) VALUES(%d,'%s','%s');"%(creatorID, setName, cardData)
     c.execute(addSet)
     db.commit()
     db.close()

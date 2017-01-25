@@ -4,7 +4,7 @@ import sqlite3
 db = sqlite3.connect("../data/main.db")
 c = db.cursor()
 
-publicSets = "CREATE TABLE PublicSets(setID INTEGER, creatorID INTEGER, setName TEXT, cardData TEXT);"
+publicSets = "CREATE TABLE PublicSets(setID INTEGER PRIMARY KEY AUTOINCREMENT, creatorID INTEGER, setName TEXT, cardData TEXT);"
 c.execute(publicSets)
 
 users = "CREATE TABLE Users(uID INTEGER, username TEXT, hashedPass TEXT);"

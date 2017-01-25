@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, session, url_for, redirect
-from utils import userDb
+from utils import userDb, cardDb
 import hashlib
 
 app = Flask(__name__)
@@ -12,6 +12,7 @@ app.secret_key = "secrets"
 
 @app.route("/")
 def root():
+    cardDb.addSet(99999998,"set","example");
     return render_template('index.html')
     # Turn this back on once /home/ is working
     """
@@ -48,17 +49,17 @@ def register():
         session['userID'] = userDb.getUserID(username)
         return "true"
 
-@app.route("/createSet/")
-def create():
-    if isLoggedIn():
-        
+#@app.route("/createSet/")
+#def create():
+#    if isLoggedIn():
+'''     
 
 
 @app.route("/set/<setID>/")
 def set(setID):
     if isLoggedIn():
         cardDb.addSet()
-
+'''
 
 # HELPERS-----------------------------------------------------------------------
 

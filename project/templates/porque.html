@@ -1,0 +1,31 @@
+<!HTML DOCTYPE>
+<html>
+	<head>
+	<title>This is a website</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href={{url_for('static',filename='test.css')}}>
+	</head>
+		<body>
+		<br>
+		<div class="card" align="center">
+			<img id="picture" class="card-img-top" src="">
+			<div class="card-block" id ="editmode">
+				<input type="text" id="title" placeholder="enter title or question - this will be the front"><hr>
+				<textarea id="description" placeholder="enter description - this will be the back"></textarea>
+				<img id="picture" class="card-img-top" src="">
+			</div>
+			<div id = "cc2"></div>
+		</div>
+		<div class ="container-fluid" style="position: absolute; top: 90%;">
+		<input type="text" placeholder="Put in the link of the picture you want" id="mage">
+		<button id = "img"> Add an image</button>
+		<button id ="next"> Next card </button>
+		<button id = "front">Turn the flashcard</button>
+		<button class="btn btn-primary" id ="save"> Save</button>
+		</div>
+		<script src ={{url_for('static', filename='rend.js')}}></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		</body>
+	</head>
+</html>

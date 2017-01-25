@@ -1,0 +1,75 @@
+#notify{
+	left: 50%;
+	width: 30%;
+	height: 10%;
+	top: 0%;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	margin-left: -15%;
+	opacity: 0;
+	transition: 3s;
+	background-color: lightblue;
+	position: fixed;
+	text-align: center;
+}
+
+#mod2{
+	width: 300px;
+}
+
+#editmode, cc1{
+	margin: auto;
+	position: absolute;
+	width: 40%;
+	height: 40%;
+	background-color: #ededed;
+	box-shadow: 2px 2px 2px black;
+	top: 35%;
+	left: 50%;
+	margin-left: -20%;
+	overflow: hidden;
+	padding: 20px;
+}
+
+textarea{
+	width: 300px;
+	height: 150px;
+}
+
+#cc1 {
+	z-index: 3;
+	margin: auto;
+	width: 40%;
+	height: 40%;
+	background-color: #ededed;
+	box-shadow: 2px 2px 2px black;
+	padding: 20px;
+	overflow: hidden;
+	left: 50%;
+	top: 35%;
+	margin-left: -20%;
+	word-wrap: break-word;
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#cc2{
+	position: absolute;
+	background-color: lightgray;
+	z-index: 2;
+	width: 20%;
+	height: 30%;
+	top: 30%;
+	left: -40%;
+	right: 0;
+	margin: auto;
+	display: none;
+
+}
+
+#picture{
+	max-width: 300px;
+	max-height: 200px;
+}
