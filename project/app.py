@@ -12,6 +12,7 @@ app.secret_key = "secrets"
 
 @app.route("/")
 def root():
+    #print cardDb.downloadPublicSet(1, "batter", 30)
     return render_template('index.html')
     # Turn this back on once /home/ is working
     """
@@ -60,12 +61,34 @@ def set(setID):
         cardDb.addSet()
 '''
 
+@app.route("/pullData/<setID>/")
+def pullData(setID):
+    if isLoggedIn():
+        tuple = cardDb.getSetData(session['userID'],setID)
+        #tuple : (setName, setID, <setData>)
+        dict = {}
+        dict["setName"] = tuple[0]
+        dict["setID"] = tuple[1]
+        #<setData> = <cardData>%%<cardData>%%<>...
+        #<cardData> : <content>||<content>||interCt||interval||cardYr||...
+        #<content> : <piece>**<piece>**..
+
+        rawSetData = tuple[2].split("%%")
+        parsedSetData = []
+        for cardData in rawSetData:
+            parsedSetData.append(parseCardData(cardData))
+        dict["setData"] = parsedSetData
+
+        #return format : {setName, setID, [<cardData_dict>,...]}
+        #<cardData_dict> = {front, back, interCt, interval, cardYr, cardMn, cardDt, cardEF}
+        return dict
+
+
 # HELPERS-----------------------------------------------------------------------
 
 # Login Helpers
 def isLoggedIn():
     return "userID" in session
-
 
 def getUserID():
     return session["userID"]
@@ -77,6 +100,11 @@ def logout():
 def hash(unhashed):
     return hashlib.md5(unhashed).hexdigest()
 
+def parseCardData(cardDataString):
+    cardDataList = cardDataString.split("||")
+    cardDataDict = {"front":cardDataList[0].split("**"),"back":cardDataList[1].split("**"),"interCt":int(cardDataList[2]),"interval":int(cardDataList[3]),"cardYr":int(cardDataList[4]),"cardMn":int(cardDataList[5]),"cardDt":int(cardDataList[6]),"cardEf":float(cardDataList[7])}
+
 if __name__ == "__main__":
     app.debug = True
     app.run()
+

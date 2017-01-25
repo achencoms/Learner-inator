@@ -11,9 +11,24 @@ var spin = 0;
 var back = document.getElementById("front");
 var next = document.getElementById("next");
 
+//creation of test variables
+var mama = document.createElement('p');
+var pool = document.createTextNode("I AM AN APPLE");
+mama.appendChild(pool);
+var dada = document.createElement('p');
+var poole = document.createTextNode("I AM AN ORANGE");
+dada.appendChild(poole);
+var son = document.createElement('p');
+var pole = document.createTextNode("I AM A DOG");
+son.appendChild(pole);
+var dau = document.createElement('p');
+var poles = document.createTextNode("I AM AN USERID");
+dau.appendChild(poles);
+
 next.onclick = function(){
-	setTimeout(function(){body2.style.boxShadow = "2px 2px 2px black";}, 5000);
-        body2.style.left = "50%";
+	setTimeout(function(){body2.style.boxShadow = "2px 2px 2px black";}, 3000);
+	if(spin % 360 == 0 && spin != 0) body2.style.transform = "rotateY(180deg)"
+    body2.style.left = "50%";
 	body2.style.top = "35%";
 	body2.style.height = "40%";
 	body2.style.width = "40%";
@@ -23,7 +38,10 @@ next.onclick = function(){
 	body2.style.display = "flex";
 	body2.style.backgroundColor = "#ededed";
 	body2.style.transition = "2s";
+	body2.appendChild(mama);
+	body2.style.display = "flex";
 	setTimeout(function(){
+	body.innerHTML = "";
 	body.style.backgroundColor = "lightgray";
 	body.style.right = "0";
 	body.style.left= "40%";
@@ -34,7 +52,7 @@ next.onclick = function(){
 	body.style.zIndex = 2;
 	body.innerHTML = "";
 	},1000);
-	setTimeout(function(){body = [body2, body2 = body][0]}, 6000);
+	setTimeout(function(){body = [body2, body2 = body][0]}, 4000);
 	
 }
 
@@ -61,28 +79,31 @@ back.onclick = function(){
 	body.style.transition = "3s";
 	setTimeout(function(){body.innerHTML = "";},800);
 	setTimeout(function(){if(spin % 360 != 0){
-		$.ajax({
-			url: '/data',
-			type: 'GET',
-			data: "moo",
-			success: function(d){
-				d = JSON.parse(d);
-				var mama = document.createElement('p');
-				var pool = document.createTextNode(d['string']);
-				mama.id = "yes";
-				mama.onclick = function(){
+		    $.ajax({
+			   url: '/data',
+			   type: 'GET',
+			   data: "moo",
+			   success: function(d){
+					//d = JSON.parse(d);
+					/*mama.id = "yes";
+					mama.onclick = function(){
 					var edi = document.createElement('input');
-					edi.defaultValue = d['string'] ;
+				    edi.defaultValue = d['string'] ;
 					edi.style.transform = "rotateY(180deg)";
 					body.removeChild(document.getElementById("yes"));
 					body.insertBefore(edi, body.childNodes[0]);
 					card2 = edi;
-				}
-				mama.appendChild(pool);
-				mama.style.transform = "rotateY(180deg)";
-				body.appendChild(mama);
+					}
+					mama.style.transform = "rotateY(180deg)";
+				    body.appendChild(mama);*/
 			}});
-	}}, 800);
+			mama.style.transform = "rotateY(180deg)";
+			body.appendChild(mama);
+	}
+	else{
+		body.appendChild(dau);
+	}
+	}, 900);
 }
 
 window.onload = function(){
@@ -91,6 +112,7 @@ window.onload = function(){
 	notify.appendChild(saved);
 	notify.id = "notify";
 	document.body.appendChild(notify);
+	body.appendChild(son);
 }
 
 save.onclick = function(){
@@ -102,19 +124,18 @@ save.onclick = function(){
 	info['title'] = t.value;
 	d.value = '';
 	t.value =  '';
-	var i = card2.value;
-	var length = i.length;
+	/*var length = i.length;
 	var height = 1;
 	while(length - 24 > 0){
 		height++;
 		length -= 24;
-	}
+	}*/
 	$.ajax({
-		url: '/data',
+		url: '/storedata',
 		type: 'GET',
 		data: info,
 		success: function(d){
-			body.removeChild(card2);
+			/*body.removeChild(card2);
 			var pos = document.createElement('p');
 			var te = document.createTextNode(i);
 			if(spin % 360 != 0) pos.style.transform = "rotateY(180deg)";
@@ -133,7 +154,7 @@ save.onclick = function(){
 				body.insertBefore(edi, body.childNodes[0]);
 				card2 = edi;
 			}
-			body.insertBefore(pos, body.childNodes[0]);
+			body.insertBefore(pos, body.childNodes[0]);*/
 		}
 	});
 }
