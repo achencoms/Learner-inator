@@ -59,7 +59,7 @@ def getSets(uID):
 def getSetData(uID, setID):
     db = sqlite3.connect("data/main.db")
     c = db.cursor()
-    cmd = "SELECT * FROM PrivateCards WHERE uID = d;"%(uID)
+    cmd = "SELECT * FROM PrivateCards WHERE uID = %d;"%(uID)
     sel = c.execute(cmd).fetchone()
     db.close()
     if sel == None:
@@ -74,7 +74,7 @@ def getSetData(uID, setID):
 def ownsSet(setID, uID): #pulled directly from Public table
     db = sqlite3.connect("data/main.db")
     c = db.cursor()
-    cmd = "SELECT * FROM PrivateCards WHERE uID = d;"%(uID)
+    cmd = "SELECT * FROM PrivateCards WHERE uID = %d;"%(uID)
     sel = c.execute(cmd).fetchone()
     db.close()
     if sel == None:
@@ -89,7 +89,7 @@ def ownsSet(setID, uID): #pulled directly from Public table
 def addToLibrary(setID, creatorID, setName, cardData, uID):
     db = sqlite3.connect("data/main.db")
     c = db.cursor()
-    cmd = "SELECT * FROM PrivateCards WHERE uID = d;"%(uID)
+    cmd = "SELECT * FROM PrivateCards WHERE uID = %d;"%(uID)
     sel = c.execute(cmd).fetchone()
     db.close()
     if sel == None:
@@ -109,10 +109,39 @@ def addToLibrary(setID, creatorID, setName, cardData, uID):
     sets.append(newSet)
     "!!".join(sets)
 
+def downloadPublicSet(setID, setName, uID):
+    db = sqlite3.connect("data/main.db")
+    c = db.cursor()
+    cmd = "SELECT * FROM PublicCards WHERE setID = %d;"%(uID)
+    sel = c.execute(cmd).fetchone()
+    if sel == None:
+        return False
+    cardData = sel[2]
+    setName = sel[0]
+    customID = str(setID) + "&" + str(uID)
+    splitCardData = cardData.split("%%");
+    for card in splitCardData: #initialize EF and Interval
+        card = card + "EF2.5"
+        card = card + "ITCT1"        
+        card = card + "ITVL"
+        card = card + "CDYR"
+        card = card + "CDMN"
+        card = card + "CDDT"#no initial values
+    initializedData = "%%".join(splitCardData)
+    cmd = "SELECT * FROM PrivateCards WHERE uID = %d;"%(uID)
+    sel = c.execute(cmd).fetchone()
+    sets = sel.split("!!")
+    newSet = [customID, setName, initializedData]
+    "///".join(newSet)
+    sets.append(newSet)
+    "!!".join(sets)
+    db.close()
+    
+    
 def rmFromLibrary(uID, setID):
     db = sqlite3.connect("data/main.db")
     c = db.cursor()
-    cmd = "SELECT * FROM PrivateCards WHERE uID = d;"%(uID)
+    cmd = "SELECT * FROM PrivateCards WHERE uID = %d;"%(uID)
     sel = c.execute(cmd).fetchone()
     db.close()
     if sel == None:
@@ -128,7 +157,7 @@ def rmFromLibrary(uID, setID):
 def updateSet(uID, setID, newSetData): #upon close of session, or for editing   
     db = sqlite3.connect("data/main.db")
     c = db.cursor()
-    cmd = "SELECT * FROM PrivateCards WHERE uID = d;"%(uID)
+    cmd = "SELECT * FROM PrivateCards WHERE uID = %d;"%(uID)
     sel = c.execute(cmd).fetchone()
     db.close()
     if sel == None:
