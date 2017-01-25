@@ -48,9 +48,14 @@ def register():
         session['userID'] = userDb.getUserID(username)
         return "true"
 
+@app.route("/createSet/")
+def create():
+    if isLoggedIn():
+        
+
 
 @app.route("/set/<setID>/")
-def create(setID):
+def set(setID):
     if isLoggedIn():
         cardDb.addSet()
 
