@@ -49,9 +49,10 @@ def register():
         return "true"
 
 
-# @app.route("/set/<setID>/")
-# def create(setID):
-#    if isLoggedIn():
+@app.route("/set/<setID>/")
+def create(setID):
+    if isLoggedIn():
+        cardDb.addSet()
 
 
 # HELPERS-----------------------------------------------------------------------
@@ -67,6 +68,9 @@ def getUserID():
 
 def logout():
     session.pop('userID')
+
+def hash(unhashed):
+    return hashlib.md5(unhashed).hexdigest()
 
 if __name__ == "__main__":
     app.debug = True
