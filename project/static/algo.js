@@ -76,6 +76,11 @@ var getFirstCardData = function(){
 
 }
 
+//in case they dumb
+var quidditched(){
+
+}
+
 //interYr:
 //load by next up
 //DATABANK [<CARD>, <CARD>, <CARD>]
@@ -93,6 +98,7 @@ var algoPush = function(response){//the last card was just finished (and it's at
     
     if (response < 3){
 	interCt = 1;
+	interval = 1;
     }
     else {
 	if (interCt == 1){
@@ -116,10 +122,16 @@ var algoPush = function(response){//the last card was just finished (and it's at
     
     else{
 	
-	var days = interval; // Days you want to subtract
+	if (interCt == 1){
+	    cardDt = getDate();
+	    cardMn = getMonth();
+	    cardYr = getFullYear();
+	}
+	    
+	var days = interval; // Days you want to add
 	var date = new Date();
 	var last = new Date(date.getTime() + (days * 24 * 60 * 60 * 1000));
-	removed[cardDt] =last.getDate();
+	removed[cardDt] = last.getDate();
 	removed[cardMn] =last.getMonth();
 	removed[cardYr] =last.getFullYear();
 	dataBank[inactive].push(removed);//get interval
