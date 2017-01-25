@@ -83,6 +83,14 @@ def pullData(setID):
         #<cardData_dict> = {front, back, interCt, interval, cardYr, cardMn, cardDt, cardEF}
         return dict
 
+@app.route("/pushData/<setID>/", methods = ['GET'])
+def pushData(setID):
+    if isLoggedIn():
+        cardData = request.args.get("title") + "||" + request.args.get("description") + "||" + "2.5" + "||" + "1" + "||" + "-1" + "||" + "||" + "9999" + "||" + "13" + "||" + "32"
+        newSetData = cardDb.getSetData(session['userID'],setID) + "%%" + cardData
+        cardDb.updateSet(session['userID'],setID,newSetData)
+        
+
 
 # HELPERS-----------------------------------------------------------------------
 
