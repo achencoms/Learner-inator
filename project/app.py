@@ -13,14 +13,21 @@ app.secret_key = "secrets"
 @app.route("/")
 def root():
     #cardDb.downloadPublicSet(1,"pineapples", 3)
-    return render_template('because.html')
+#    return render_template('because.html')
     # Turn this back on once /home/ is working
-    """
     if isLoggedIn():
-        return render_template('home.html')
+        megaSet = cardDb.getSets(session["userID"])
+        rawList = megaSet.split("!!")
+        listODicts = []
+        for set in rawList:
+            dict = {}
+            setList = set.split("///")
+            dict["setID"] = setList[1]
+            dict["setName"] = setList[0]
+            listODicts.append(dict)
+        return render_template('home.html', mySets = listODicts)
     else:
         return render_template('index.html')
-    """
 
 
 @app.route("/login/", methods=["POST"])
@@ -169,7 +176,15 @@ def new():
 def search():
     if isLoggedIn():
         searchTerm = request.args.get("q")
-        return render_template("search.html", list = searchSets.setSearch(searchTerm))
+        list = searchSets.setSearch(searchTerm)
+        listODicts = []
+        for entry in list:
+            set = {}
+            set["setID"] = entry[0]
+            set["setName"] = entry[2]
+            set["authorName"] = userDb.getUsername(entry[1])
+            listODicts.append(set)
+        return render_template("search.html", searchResults = listODicts)
 
 # HELPERS-----------------------------------------------------------------------
 
