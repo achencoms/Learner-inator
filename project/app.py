@@ -179,7 +179,7 @@ def new():
 def createSet():
     if isLoggedIn():
         addSet(session["userID"], request.form.get("setName"), (request.form.get("cardList"))["frontText"] + "||" + (request.form.get("cardList"))["imageUrl"] + "**" + (request.form.get("cardList"))["audioUrl"] + "**" + (request.form.get("cardList"))["backText"])
-        return True
+        return cardDb.getSetID(request.form.get("setName"))
     
 
 @app.route("/search/", methods = ["GET"])
