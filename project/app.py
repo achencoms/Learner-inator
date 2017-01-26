@@ -13,11 +13,8 @@ app.secret_key = "secrets"
 @app.route("/")
 def root():
     #cardDb.downloadPublicSet(1,"pineapples", 3)
-<<<<<<< HEAD
 #    return render_template('because.html')
-=======
-    return render_template('viewSet.html')
->>>>>>> 75e6fe17e5670cb693865786d5e8f651d8f8556e
+#    return render_template('viewSet.html')
     # Turn this back on once /home/ is working
     if isLoggedIn():
         megaSet = cardDb.getSets(session["userID"])
