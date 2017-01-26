@@ -55,12 +55,10 @@ def register():
     username = request.form["username"]
     password = request.form["password"]
     #reg
-    if userDb.doesUserExist("username"):
-        return "false"
-    else:
+    if not userDb.doesUserExist("username"):
         userDb.registerAccountInfo(username,password)
         session['userID'] = userDb.getUserID(username)
-        return "true"
+    return redirect(url_for('root'))
 
 @app.route("/viewSet/<setID>")
 def viewSet(setID):
@@ -171,17 +169,18 @@ def createData(setID):
         return render_template("")
         ##addToLibrary(setID, session["userID"], request.args.get("setName"), "||||||||||||||||", session["userID"])
 
-@app.route("/new/", methods = ["POST"])
+@app.route("/new/")
 def new():
     if isLoggedIn():
         return render_template("createSet.html")
+    return render_template("index.html")
 
 @app.route("/createSet/", methods = ["POST"])
 def createSet():
     if isLoggedIn():
         addSet(session["userID"], request.form.get("setName"), (request.form.get("cardList"))["frontText"] + "||" + (request.form.get("cardList"))["imageUrl"] + "**" + (request.form.get("cardList"))["audioUrl"] + "**" + (request.form.get("cardList"))["backText"])
         return cardDb.getSetID(request.form.get("setName"))
-    
+    return render_template("index.html")
 
 @app.route("/search/", methods = ["GET"])
 def search():
@@ -196,7 +195,7 @@ def search():
             set["authorName"] = userDb.getUsername(entry[1])
             listODicts.append(set)
         return render_template("search.html", searchResults = listODicts)
-
+    return render_template("index.html")
 # HELPERS-----------------------------------------------------------------------
 
 # Login Helpers
