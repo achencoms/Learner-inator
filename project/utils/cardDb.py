@@ -49,18 +49,18 @@ def addToPublicSet(setID, uID, cardData):
     if ownsPublicSet(setID, uID):
         db = sqlite3.connect("data/main.db")
         c = db.cursor()
-        rmSet = "SELECT * FROM PublicSets WHERE setID = '%s' AND uID = %d;"%(setID, uID)
+        rmSet = "SELECT * FROM PublicSets WHERE setID = '%s' AND creatorID = %d;"%(setID, uID)
         sel = c.execute(rmSet).fetchone()
         if sel == None:
             return False
         else:
-            sets = sel[2].split("!!")
+            sets = sel[3].split("%%")
             sets.append(cardData)
-            newSets = "!!".join(sets)
-            addSet = "UPDATE PublicSets SET sets = '%s' WHERE setID = '%s';"%(newSets, setID)
+            newSets = "%%".join(sets)
+            addSet = "UPDATE PublicSets SET cardData = '%s' WHERE setID = '%s';"%(newSets, setID)
             c.execute(addSet)
             db.commit()
-        db.close()
+            db.close()
     else:
         return False
 

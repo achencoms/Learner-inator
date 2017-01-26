@@ -9,6 +9,9 @@ var spin = 0;
 var back = document.getElementById("front");
 var next = document.getElementById("next");
 
+//global variable counter for current set
+var count = 0;
+
 //creation of test variables
 var mama = document.createElement('p');
 var pool = document.createTextNode("I AM AN APPLE");
@@ -106,12 +109,18 @@ back.onclick = function(){
 
 window.onload = function(){
 	$.ajax({
-		url: '/pullSet/1/',
+		url: '/pullSet1/5/',
 		type: 'GET',
 		success: function(d){
             console.log(d);
 			d = JSON.parse(d)
-			//console.log(d['cards']['0']['front'][0]);
+			d['cards'][count.toString()]["front"][count];
+			d['cards'][count.toString()]["back"][count];
+			/*for(i = 0; i < Object.keys(d['cards']).length; i++){
+				console.log(d['cards'][i.toString()]["front"][0]);
+				console.log(d['cards'][i.toString()]["back"][0]);
+			}*/
+			//console.log(window.location.href.split("/"))
 			console.log(d['cards'][0]["front"][0]);
 			console.log(d);
 		}

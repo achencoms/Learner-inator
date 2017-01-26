@@ -13,7 +13,7 @@ app.secret_key = "secrets"
 @app.route("/")
 def root():
     #cardDb.downloadPublicSet(1,"pineapples", 3)
-    return render_template('porque.html')
+    return render_template('because.html')
     # Turn this back on once /home/ is working
     """
     if isLoggedIn():
@@ -133,6 +133,7 @@ def pullSet1(setID):
             parsedSetData[str(increment)] = parseCardDataFB(cardData)
             increment += 1
         dict["cards"] = parsedSetData
+        print "whose"
         print dict
         return json.dumps(dict)                                     
 
@@ -140,11 +141,10 @@ def pullSet1(setID):
 @app.route("/pushData/<setID>/", methods = ['GET'])
 def pushData(setID):
     if isLoggedIn():
-        cardData = request.args.get("title") + "||" + request.args.get("desc") + "||" + "2.5" + "||" + "1" + "||" + "-1" + "||" + "9999" + "||" + "13" + "||" + "32"
-        newSetData = cardDb.getSetData(3,1) + "%%" + cardData
-        print cardDb.getSetData(3,1)
-        cardDb.updateSet(3,1,newSetData)
-        print cardDb.getPublicSet(1)
+        cardData = request.args.get("title") + "||" + request.args.get("desc") #+ "||" + "2.5" + "||" + "1" + "||" + "-1" + "||" + "9999" + "||" + "13" + "||" + "32"
+        #newSetData = cardDb.getSetData(3,1) + "%%" + cardData
+        #cardDb.updateSet(3,1,newSetData)
+        cardDb.addToPublicSet(5,1,cardData)
         #cardDb.updateSet(session['userID'],setID,newSetData)
 	return render_template("porque.html") 
 
@@ -177,6 +177,7 @@ def parseCardData(cardDataString):
 
 def parseCardDataFB(cardDataString):
     cardDataList = cardDataString.split("||")
+    print cardDataList
     cardDataDict = {"front":cardDataList[0].split("**"),"back":cardDataList[1].split("**")}
     return cardDataDict
 
