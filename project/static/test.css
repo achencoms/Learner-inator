@@ -16,6 +16,21 @@
 	align-items: center;
 }
 
+#tunak{	
+	max-width: 30%;
+}
+
+div[contenteditable]{
+		border: 1px solid black;
+		width: 30%;
+		font-size: 20px;
+		min-height: 30px;
+		overflow: hidden;
+		max-height: 40%;
+		margin: 5px;
+		float: left;
+}
+
 #title{
 	width: 50%;
 }
@@ -40,11 +55,12 @@ textarea{
 }
 
 #cc1 {
+	color: white;
 	z-index: 3;
 	margin: auto;
 	width: 40%;
 	height: 40%;
-	background-color: #ededed;
+	background-color: #76A2C1;
 	box-shadow: 2px 2px 2px black;
 	padding: 20px;
 	overflow: hidden;
@@ -59,8 +75,9 @@ textarea{
 }
 
 #cc2{
+	color: white;
 	position: absolute;
-	background-color: lightgray;
+	background-color: #345CA8;
 	z-index: 2;
 	width: 20%;
 	height: 30%;
@@ -77,4 +94,21 @@ textarea{
 #picture{
 	max-width: 300px;
 	max-height: 200px;
+}
+
+.rating{
+	unicode-bidi: bidi-override;
+	direction: rtl;
+}
+
+.rating > span:hover:before
+.rating > span;hover ~ span:before{
+		content: "\2605";
+		position: absolute;
+)
+
+.rating > span{
+	display: inline-block;
+	position: relative;
+	width: 1.1em;
 }

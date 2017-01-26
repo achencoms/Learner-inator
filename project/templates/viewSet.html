@@ -1,11 +1,12 @@
 {% extends "pageBase.html" %}
 
 {% block title %}
-    <title>{{ set.setName|e }} - Learn-inator 3000</title>
-{% endblock title %}
+    <title> - Learn-inator 3000</title>
+{% endblock%}
 
 {% block customStyle %}
 <link href="../static/viewSet-style.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href={{url_for('static',filename='test.css')}}>
 {% endblock customStyle %}
 
 {% block collapsedList %}
@@ -24,14 +25,20 @@
 <div id="study-app" class="container">
     <div id="title-bar" class="page-header">
         <!-- Give title same color as hover link -->
-        <h2 id="set-title"> {{ set.setName|e }} <small><a href="/user/{{ set.authorID }}">by {{ set.authorName|e }}</a></small></h2>
+        <h2 id="set-title"> <small><a href="/user/2">by </a></small></h2>
         <div id="title-icons">
             <i class="glyphicon glyphicon-pencil"></i>
             <i class="glyphicon glyphicon-info-sign"></i>
             <i class="glyphicon glyphicon-duplicate"></i>
         </div>
     </div>
-    <div id="card-view" class="row">
+	<div class="card" align="center">
+			<img id="picture" class="card-img-top" src="">
+			<div class="card-block" id ="cc1">
+			</div>
+			<div id = "cc2"></div>
+		</div>
+    <div id="card-view" class="row" style="visibility: hidden;";>
         <div id="left-arrow" class="text-center card-arrow col-md-1 col-md-offset-2">
             <i class="glyphicon glyphicon-chevron-left"></i>
         </div>
@@ -42,12 +49,23 @@
             <i class="glyphicon glyphicon-chevron-right "></i>
         </div>
     </div>
+	<div class ="container" align="center">
+	<button class="btn btn-secondary"> 0 </button>
+	<button class="btn btn-secondary"> 1 </button>
+	<button class="btn btn-secondary"> 2 </button>
+	<button class="btn btn-secondary"> 3 </button>
+	<button class="btn btn-secondary"> 4 </button>
+	<button class="btn btn-secondary"> 5 </button>
+	<button class="btn btn-primary" id = "front">Turn the flashcard</button>
+	<button class="btn btn-primary" id ="save"> Save</button> 
+	</div>
     <div id="card-progress" class="row">
         <div class="progress">
             <div id="cardNums" class="progress-bar" role="progressbar">
-                0/{{ length(set.cards) }}
+                0/
             </div>
         </div>
     </div>
 </div>
+<script src ={{url_for('static', filename='rend.js')}}></script>
 {% endblock content %}

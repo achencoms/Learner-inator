@@ -13,7 +13,7 @@ app.secret_key = "secrets"
 @app.route("/")
 def root():
     #cardDb.downloadPublicSet(1,"pineapples", 3)
-    return render_template('because.html')
+    return render_template('viewSet.html')
     # Turn this back on once /home/ is working
     """
     if isLoggedIn():
@@ -35,6 +35,10 @@ def login():
     else:
         return "false"
 
+@app.route("/logout/")
+def logout():
+    session.pop('userID')
+    return redirect(url_for('root'))
 
 @app.route("/register/", methods=["POST"])
 def register():
@@ -49,7 +53,7 @@ def register():
         session['userID'] = userDb.getUserID(username)
         return "true"
 
-@app.route("/viewSet/setID")
+@app.route("/viewSet/<setID>")
 def viewSet(setID):
     return render_template("viewSet.html")
 
@@ -122,25 +126,24 @@ def pullSet(setID):
 
 @app.route("/pullSet1/<setID>/", methods =['GET'])
 def pullSet1(setID):
-    if isLoggedIn():
-        tuple = cardDb.getPublicSet(int(setID))
-        #tuple : (setID, creatorID, setName, cardData)
-        dict = {}
-        dict["setName"] = tuple[2]
-        dict["setID"] = tuple[0]
-        dict["authorName"] = userDb.getUsername(tuple[1])
-        dict["authorID"] = tuple[1]
-        rawSetData = tuple[3].split("%%")
-        parsedSetData = {}
-        increment = 0
-        for cardData in rawSetData:
-            parsedSetData[str(increment)] = parseCardDataFB(cardData)
-            increment += 1
-        dict["cards"] = parsedSetData
-        print "whose"
-        print dict
-        return json.dumps(dict)                                     
-
+    tuple = cardDb.getPublicSet(int(setID))
+    #tuple : (setID, creatorID, setName, cardData)
+    dict = {}
+    dict["setName"] = tuple[2]
+    dict["setID"] = tuple[0]
+    dict["authorName"] = userDb.getUsername(tuple[1])
+    dict["authorID"] = tuple[1]
+    rawSetData = tuple[3].split("%%")
+    parsedSetData = {}
+    increment = 0
+    for cardData in rawSetData:
+        parsedSetData[str(increment)] = parseCardDataFB(cardData)
+        increment += 1
+    dict["cards"] = parsedSetData
+    print "whose"
+    print dict
+    return json.dumps(dict)                                     
+	
 
 @app.route("/pushData/<setID>/", methods = ['GET'])
 def pushData(setID):
@@ -167,9 +170,6 @@ def isLoggedIn():
 
 def getUserID():
     return session["userID"]
-
-def logout():
-    session.pop('userID')
 
 def hash(unhashed):
     return hashlib.md5(unhashed).hexdigest()
