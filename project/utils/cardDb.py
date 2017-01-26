@@ -181,7 +181,6 @@ def updateSet(uID, setID, newSetData): #upon close of session, or for editing
     c = db.cursor()
     cmd = "SELECT * FROM PrivateCards WHERE uID = %d;"%(uID)
     sel = c.execute(cmd).fetchone()
-    db.close()
     if sel[0] == None:
         return False
     sets = sel[1].split("!!")
@@ -189,9 +188,12 @@ def updateSet(uID, setID, newSetData): #upon close of session, or for editing
         a = thing.split("///")
         if a[0] == setID:
             thing = newSetData
-            break;
+            break;	
     newSets = "!!".join(sets)
-    addSet = "UPDATE PrivateCards SET(uID, sets) VALUES(%d,'%s');"%(uID, newSets)
+    db.close()
+    db = sqlite3.connect("data/main.db")
+    c = db.cursor()
+    addSet = "UPDATE PrivateCards SET(uID, sets) VALUES(%d,%s);"%(uID, newSets)
     c.execute(addSet)
     db.commit()
     db.close()

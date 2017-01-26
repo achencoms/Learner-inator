@@ -92,13 +92,13 @@ def pushData(setID):
         print setID
         print session['userID']
         cardDb.updateSet(session['userID'],setID,newSetData)
-    return render_template("porque.html") 
+	return render_template("porque.html") 
 
 @app.route("/createData/<setID>/", methods = ['GET']) #just creating the set, we don't need to push setData as of now
 def createData(setID):
     if isLoggedIn():
         addSet(session["userID"], request.args.get("setName"), "||||||||||||||||")
-		return render_template("porque.html")
+        return render_template("porque.html")
         ##addToLibrary(setID, session["userID"], request.args.get("setName"), "||||||||||||||||", session["userID"])
 
 # HELPERS-----------------------------------------------------------------------
