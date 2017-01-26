@@ -100,7 +100,6 @@ def addToLibrary(setID, creatorID, setName, cardData, uID):
     c = db.cursor()
     cmd = "SELECT * FROM PrivateCards WHERE uID = %d;"%(uID)
     sel = c.execute(cmd).fetchone()
-    db.close()
     if sel == None:
         return False
     splitCardData = cardData.split("%%");
@@ -116,7 +115,12 @@ def addToLibrary(setID, creatorID, setName, cardData, uID):
     newSet = [setID, setName, adjustedData]
     "///".join(newSet)
     sets.append(newSet)
-    "!!".join(sets)
+    newSet = "!!".join(sets)
+    addSet = "UPDATE PrivateCards SET(uID, sets) VALUES(%d,'%s');"%(uID, newSet)
+    c.execute(addSet)
+    db.commit()
+    db.close()
+    
 
 def downloadPublicSet(setID, setName, uID):
     db = sqlite3.connect("data/main.db")
@@ -144,7 +148,10 @@ def downloadPublicSet(setID, setName, uID):
     newSet = [setID, setName, initializedData]
     "///".join(newSet)
     sets.append(newSet)
-    "!!".join(sets)
+    newSet = "!!".join(sets)   
+    addSet = "UPDATE PrivateCards SET(uID, sets) VALUES(%d,'%s');"%(uID, newSet)
+    c.execute(addSet)
+    db.commit()
     db.close()
     
     
@@ -161,11 +168,15 @@ def rmFromLibrary(uID, setID):
         a = thing.split("///")
         if a[0] == setID:
             sets.remove(thing)
-            return
-    return False
+            break
+    newSet = "!!".join(sets)
+    addSet = "UPDATE PrivateCards SET(uID, sets) VALUES(%d,'%s');"%(uID, newSet)
+    c.execute(addSet)
+    db.commit()
+    db.close()
 
 #we need to update the database
-'''def updateSet(uID, setID, newSetData): #upon close of session, or for editing   
+def updateSet(uID, setID, newSetData): #upon close of session, or for editing   
     db = sqlite3.connect("data/main.db")
     c = db.cursor()
     cmd = "SELECT * FROM PrivateCards WHERE uID = %d;"%(uID)
@@ -178,7 +189,11 @@ def rmFromLibrary(uID, setID):
         a = thing.split("///")
         if a[0] == setID:
             thing = newSetData
-            return
-    return False
+            break;
+    newSets = "!!".join(sets)
+    addSet = "UPDATE PrivateCards SET(uID, sets) VALUES(%d,'%s');"%(uID, newSets)
+    c.execute(addSet)
+    db.commit()
+    db.close()
+    
 #if editing, creatorID changes, setID changes
-'''
