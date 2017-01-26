@@ -11,7 +11,7 @@ users = "CREATE TABLE Users(uID INTEGER, username TEXT, hashedPass TEXT);"
 c.execute(users)
 #discrepancy b/n public/private sets need to be resolved
 
-cards = "CREATE TABLE PrivateCards(uID INTEGER, sets TEXT);"
+cards = "CREATE TABLE PrivateCards(uID INTEGER PRIMARY KEY AUTOINCREMENT, sets TEXT);"
 c.execute(cards)
 
 

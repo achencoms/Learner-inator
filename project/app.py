@@ -13,7 +13,7 @@ app.secret_key = "secrets"
 @app.route("/")
 def root():
     #print cardDb.downloadPublicSet(1, "batter", 30)
-    return render_template('index.html')
+    return render_template('porque.html')
     # Turn this back on once /home/ is working
     """
     if isLoggedIn():
@@ -86,16 +86,17 @@ def pullData(setID):
 @app.route("/pushData/<setID>/", methods = ['GET'])
 def pushData(setID):
     if isLoggedIn():
-        cardData = request.args.get("title") + "||" + request.args.get("description") + "||" + "2.5" + "||" + "1" + "||" + "-1" + "||" + "||" + "9999" + "||" + "13" + "||" + "32"
+        cardData = request.args.get("title") + "||" + request.args.get("desc") + "||" + "2.5" + "||" + "1" + "||"		+ "-1" + "||" + "||" + "9999" + "||" + "13" + "||" + "32"
         newSetData = cardDb.getSetData(session['userID'],setID) + "%%" + cardData
+        print newSetData
+        print setID
+        print session['userID']
         cardDb.updateSet(session['userID'],setID,newSetData)
-        
-
+	return render_template("porque.html")
 @app.route("/addData/<setID>/", methods = ['GET']) #just creating the set, we don't need to push setData as of now
 def addData(setID):
     if isLoggedIn():
         addToLibrary(setID, session["userID"], request.args.get("setName"), "||||||||||||||||", session["userID"])
-
 
 # HELPERS-----------------------------------------------------------------------
 
@@ -105,7 +106,6 @@ def isLoggedIn():
 
 def getUserID():
     return session["userID"]
-
 
 def logout():
     session.pop('userID')

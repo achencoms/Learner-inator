@@ -73,14 +73,12 @@ def getSetData(uID, setID):
     cmd = "SELECT * FROM PrivateCards WHERE uID = %d;"%(uID)
     sel = c.execute(cmd).fetchone()
     db.close()
-    if sel == None:
-        return None
-    sets = sel.split("!!")
+    sets = sel[1].split("!!")
     for thing in sets:
         a = thing.split("///")
         if a[0] == setID:
             return thing
-    return None
+    return ""
     
 def ownsSet(setID, uID): #pulled directly from Public table
     db = sqlite3.connect("data/main.db")
@@ -96,7 +94,7 @@ def ownsSet(setID, uID): #pulled directly from Public table
         if thing[0] == setID:
             return False
     return True
-    
+
 def addToLibrary(setID, creatorID, setName, cardData, uID):
     db = sqlite3.connect("data/main.db")
     c = db.cursor()
@@ -166,19 +164,21 @@ def rmFromLibrary(uID, setID):
             return
     return False
 
-def updateSet(uID, setID, newSetData): #upon close of session, or for editing   
+#we need to update the database
+'''def updateSet(uID, setID, newSetData): #upon close of session, or for editing   
     db = sqlite3.connect("data/main.db")
     c = db.cursor()
     cmd = "SELECT * FROM PrivateCards WHERE uID = %d;"%(uID)
     sel = c.execute(cmd).fetchone()
     db.close()
-    if sel == None:
+    if sel[0] == None:
         return False
-    sets = sel.split("!!")
+    sets = sel[1].split("!!")
     for thing in sets:
         a = thing.split("///")
         if a[0] == setID:
             thing = newSetData
             return
     return False
-#if editing, creatorID changes, setID changes 
+#if editing, creatorID changes, setID changes
+'''

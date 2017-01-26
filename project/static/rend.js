@@ -1,6 +1,4 @@
 var card2 = document.getElementById("mod2");
-var d = document.getElementById("description");
-var t = document.getElementById("title");
 var body = document.getElementById("cc1");
 var body2 = document.getElementById("cc2");
 var save = document.getElementById("save");
@@ -116,6 +114,8 @@ window.onload = function(){
 }
 
 save.onclick = function(){
+	var d = document.getElementById("description");
+	var t = document.getElementById("title");
 	var moe = document.getElementById("notify");
 	moe.style.opacity = 1;
 	setTimeout(function(){moe.style.opacity = 0;},3000);
@@ -131,7 +131,7 @@ save.onclick = function(){
 		length -= 24;
 	}*/
 	$.ajax({
-		url: '/storedata',
+		url: '/pushData/1/',
 		type: 'GET',
 		data: info,
 		success: function(d){
