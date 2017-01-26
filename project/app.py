@@ -84,6 +84,24 @@ def pullData(setID):
         #<cardData_dict> = {front, back, interCt, interval, cardYr, cardMn, cardDt, cardEF}
         return dict
 
+@app.route("/pullSet/<setID>/")
+def pullSet(setID):
+    if isLoggedIn():
+        tuple = cardDb.getPublicSet(setID)
+        #tuple : (setID, creatorID, setName, cardData)
+        dict = {}
+        dict["setName"] = tuple[2]
+        dict["setID"] = tuple[0]
+        dict["authorName"] = userDb.getUserName(tuple[1])
+        dict["authorID"] = tuple[1]
+        rawSetData = tuple[3].split("%%")
+        parsedSetData = []
+        for cardData in rawSetData:
+            parsedSetData.append(parseCardData(cardData))
+        dict["cards"] = parsedSetData
+        return dict
+                                            
+
 @app.route("/pushData/<setID>/", methods = ['GET'])
 def pushData(setID):
     if isLoggedIn():
