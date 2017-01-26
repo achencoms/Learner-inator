@@ -10,7 +10,7 @@ import sqlite3
 def getAllSets():
     db = sqlite3.connect("data/main.db")
     c = db.cursor()
-    nice = "SELECT * FROM PublicSets"
+    nice = "SELECT * FROM PublicSets;"
     sel = c.execute(nice)
     ret = sel.fetchall()
     db.close()
