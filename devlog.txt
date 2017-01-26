@@ -65,3 +65,10 @@ jonalfD -- 2016-12-04 14:32
 - database and algo work
 ==============================
 
+==============================
+ All -- 2017-01-26 00:00 - 06:00
+- bugfixing
+- HTML template finishing (Mikhail)
+- Card generation (Anthony)
+- Video produced (Richard/Joel)
+==============================

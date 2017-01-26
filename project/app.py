@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, session, url_for, redirect
-from utils import userDb, cardDb
+from utils import userDb, cardDb, searchSets
 import hashlib, json
 
 app = Flask(__name__)
@@ -155,12 +155,24 @@ def pushData(setID):
         #cardDb.updateSet(session['userID'],setID,newSetData)
 	return render_template("porque.html") 
 
-@app.route("/createData/<setID>/", methods = ['GET']) #just creating the set, we don't need to push setData as of now
+@app.route("/createData/", methods = ['GET']) #just creating the set, we don't need to push setData as of now
 def createData(setID):
     if isLoggedIn():
         addSet(session["userID"], request.args.get("setName"), "||||||||||||||||")
-        return render_template("porque.html")
+        return render_template("")
         ##addToLibrary(setID, session["userID"], request.args.get("setName"), "||||||||||||||||", session["userID"])
+
+@app.route("/new/", methods = ["POST"])
+def new():
+    if isLoggedIn():
+        addSet(session["userID"], request.form.get("setName"), (request.form.get("cardList"))["frontText"] + "||" + (request.form.get("cardList"))["imageUrl"] + "**" + (request.form.get("cardList"))["audioUrl"] + "**" + (request.form.get("cardList"))["backText"])
+        return render_template("createSet.html")
+
+@app.route("/search/", methods = ["GET"])
+def search():
+    if isLoggedIn():
+        searchTerm = request.args.get("q")
+        return render_template("search.html", list = searchSets.setSearch(searchTerm))
 
 # HELPERS-----------------------------------------------------------------------
 

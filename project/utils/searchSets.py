@@ -4,7 +4,7 @@ import cardDb
 def setSearch(query):
     tupleSets = getAllSets()
     ret = []
-    for set in tupleSets:
-        if set[2].lower() == setName.lower():
-            ret.insert(set)
+    for aset in tupleSets:
+        if (aset[2].lower()).find(query.lower()) >= 0:
+            ret.insert(aset)
     return ret
