@@ -82,7 +82,7 @@ def getSetData(uID, setID):
 
 def addPrivateSet(setID, uID, setName, setData):
     addSet(uID, setName, setData)
-    addToLibrary(setID, setName, setData, uID)
+    downloadPublicSet(setID, setName, uID)
 
 def ownsSet(setID, uID): #pulled directly from Public table
     db = sqlite3.connect("data/main.db")
@@ -98,33 +98,6 @@ def ownsSet(setID, uID): #pulled directly from Public table
         if thing[0] == setID:
             return False
     return True
-
-def addToLibrary(setID, setName, cardData, uID):
-    db = sqlite3.connect("data/main.db")
-    c = db.cursor()
-    cmd = "SELECT * FROM PrivateCards WHERE uID = %d;"%(uID)
-    sel = c.execute(cmd).fetchone()
-    if sel == None:
-        return False
-    splitCardData = cardData.split("%%");
-    for card in splitCardData: #initialize EF and Interval
-        card = card + "||2.5"#EF
-        card = card + "||1"#ITCT        
-        card = card + "||-1"#ITVL
-        card = card + "||9999"#CDYR
-        card = card + "||13"#CDMN
-        card = card + "||32"#no initial values
-    adjustedData = "%%".join(splitCardData)
-    sets = sel.split("!!")
-    newSet = [setID, setName, adjustedData]
-    "///".join(newSet)
-    sets.append(newSet)
-    newSet = "!!".join(sets)
-    addSet = "UPDATE PrivateCards SET sets = '%s' WHERE uID = %d;"%(newSet, uID)
-    c.execute(addSet)
-    db.commit()
-    db.close()
-    
 
 def downloadPublicSet(setID, setName, uID):
     db = sqlite3.connect("data/main.db")
