@@ -18,15 +18,18 @@ def root():
     # Turn this back on once /home/ is working
     if isLoggedIn():
         megaSet = cardDb.getSets(session["userID"])
-        rawList = megaSet.split("!!")
-        listODicts = []
-        for set in rawList:
-            dict = {}
-            setList = set.split("///")
-            dict["setID"] = setList[1]
-            dict["setName"] = setList[0]
-            listODicts.append(dict)
-        return render_template('home.html', mySets = listODicts)
+        if (len(megaSet) == 0):
+            listODicts = []
+        else:
+            rawList = megaSet.split("!!")
+            listODicts = []
+            for set in rawList:
+                dict = {}
+                setList = set.split("///")
+                dict["setID"] = setList[1]
+                dict["setName"] = setList[0]
+                listODicts.append(dict)
+        return render_template('library.html', mySets = listODicts)
     else:
         return render_template('index.html')
 
@@ -39,9 +42,7 @@ def login():
     #auth
     if userDb.isValidAccountInfo(username,password):
         session['userID'] = userDb.getUserID(username)
-        return "true"
-    else:
-        return "false"
+    return redirect(url_for('root'))
 
 @app.route("/logout/")
 def logout():

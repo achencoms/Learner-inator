@@ -1,0 +1,101 @@
+{% extends "pageBase.html" %}
+
+{% block content %}
+<!-- Login Modal (Overlay) -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button id="loginClose" type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                <h3 class="modal-title" id="loginModalLabel">Log in</h3>
+            </div>
+            <div class="modal-body">
+                <div id="loginStatus">
+
+                </div>
+                <form id="loginForm" action="/login/" method="post">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="loginlUsername" name="username" placeholder="Type your username" required>
+                        <label for="loginUsername">Username</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" id="loginPassword" name="password" placeholder="Type your password" required>
+                        <label for="loginPassword">Password</label>
+                    </div>
+                    <button id="loginFormButton" type="submit" class="btn btn-default">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Register Modal (Overlay) -->
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button id="registerClose" type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                <h3 class="modal-title" id="registerModalLabel">Sign Up</h3>
+            </div>
+            <div class="modal-body">
+                <div id="registerStatus">
+
+                </div>
+                <form id="registerForm" action="/register/" method="post">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="registerUsername" name="username" placeholder="Username" required>
+                        <label for="registerUsername">Username</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" id="registerPassword" name="password" placeholder="Password" required>
+                        <label for="registerPassword">Password</label>
+                    </div>
+                    <div id="confirmPasswordGroup" class="form-group">
+                        <!-- <span><input type="password" class="form-control" id="registerConfirmPassword" name="confirmPassword" placeholder="Enter password again" required><span id="confirmPasswordIcon"></span></span> -->
+                        <input type="password" class="form-control" id="registerConfirmPassword" name="confirmPassword" placeholder="Enter password again" required>
+                        <span id="confirmPasswordIcon" class="glyphicon form-control-feedback hidden"></span>
+                        <label for="registerConfirmPassword">Confirm Password</label>
+                    </div>
+                    <button id="registerFormButton" type="submit" class="btn btn-default">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Get Started Modal (Overlay) -->
+<div class="modal fade" id="getStartedModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                        <h3 class="modal-title" id="getStartedModalLabel">Log in</h3>
+                    </div>
+                    <div class="modal-body">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron vertical-center">
+        <div class="container">
+            <h1>Long-term learning made quick.</h1>
+            <p>
+                Memorize anything with extremely customizable flashcards, powered by the best flashcard algorithm ever.
+            </p>
+            <a class="btn btn-primary btn-lg" href="#" data-toggle="modal" data-target="#getStartedModal" role="button">Learn more &raquo;</a>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block customJS %}
+<script src="../static/custom-index.js"></script>
+{% endblock customJS %}

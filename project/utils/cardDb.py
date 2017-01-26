@@ -89,7 +89,7 @@ def addToPublicSet(setID, uID, cardData):#owner editing (will morph id) #NOT DON
 
         
 def getPublicSet(setID):
-    if (!isPublic(setID)):
+    if (not isPublic(setID)):
         return None
     db = sqlite3.connect("data/main.db")
     c = db.cursor()
@@ -107,7 +107,7 @@ def getPublicSetData(setID):
 def getSets(uID):
     db = sqlite3.connect("data/main.db")
     c = db.cursor()
-    cmd = "SELECT * FROM PrivateCards WHERE uID = %d;"%(uID)
+    cmd = "SELECT * FROM PrivateCards WHERE uID = %d;"%(int(uID))
     sel = c.execute(cmd).fetchone()
     db.close()
     if sel == None:
@@ -117,7 +117,7 @@ def getSets(uID):
 def getSetData(uID, setID):
     db = sqlite3.connect("data/main.db")
     c = db.cursor()
-    cmd = "SELECT * FROM PrivateCards WHERE uID = %d;"%(uID)
+    cmd = "SELECT * FROM PrivateCards WHERE uID = %d;"%(int(uID))
     sel = c.execute(cmd).fetchone()
     db.close()
     print "this is sel"
