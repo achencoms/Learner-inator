@@ -83,6 +83,18 @@ def pullData(setID):
         #<cardData_dict> = {front, back, interCt, interval, cardYr, cardMn, cardDt, cardEF}
         return dict
 
+@app.route("/pullData1/<setID>/")
+def pullData1(setID):
+    if isLoggedIn():
+        tuple = cardDb.getSetData(session['userID'],setID)
+        #tuple : (setName, setID, <setData>)
+        rawSetData = tuple[2].split("%%")
+        parsedSetData = []
+        for cardData in rawSetData:
+            parsedSetData.append(parseCardDataFB(cardData))
+        return parsedSetData
+
+
 @app.route("/pullSet/<setID>/")
 def pullSet(setID):
     if isLoggedIn():
@@ -137,6 +149,11 @@ def hash(unhashed):
 def parseCardData(cardDataString):
     cardDataList = cardDataString.split("||")
     cardDataDict = {"front":cardDataList[0].split("**"),"back":cardDataList[1].split("**"),"interCt":int(cardDataList[2]),"interval":int(cardDataList[3]),"cardYr":int(cardDataList[4]),"cardMn":int(cardDataList[5]),"cardDt":int(cardDataList[6]),"cardEf":float(cardDataList[7])}
+
+def parseCardDataFB(cardDataString):
+    cardDataList = cardDataString.split("||")
+    cardDataDict = {"front":cardDataList[0].split("**"),"back":cardDataList[1].split("**")}
+    return cardDataDict
 
 if __name__ == "__main__":
     app.debug = True
