@@ -18,17 +18,20 @@ def root():
     # Turn this back on once /home/ is working
     if isLoggedIn():
         megaSet = cardDb.getSets(session["userID"])
-        if (len(megaSet) == 0):
+        if (megaSet == ''):
             listODicts = []
         else:
             rawList = megaSet.split("!!")
             listODicts = []
+            print rawList
             for set in rawList:
-                dict = {}
-                setList = set.split("///")
-                dict["setID"] = setList[1]
-                dict["setName"] = setList[0]
-                listODicts.append(dict)
+				if set != '':
+					dict = {}
+					setList = set.split("///")
+					dict["setID"] = setList[0]
+					dict["setName"] = setList[1]
+					listODicts.append(dict)
+					print listODicts
         return render_template('library.html', mySets = listODicts)
     else:
         return render_template('index.html')
@@ -66,9 +69,10 @@ def viewSet(setID):
 
 #@app.route("/createSet/")
 #def create():
-#    if isLoggedIn():
-'''     
+#   if isLoggedIn():
+#		return render_template("create")
 
+'''
 
 @app.route("/set/<setID>/")
 def set(setID):
@@ -165,7 +169,7 @@ def pushData(setID):
 @app.route("/createData/", methods = ['GET']) #just creating the set, we don't need to push setData as of now
 def createData(setID):
     if isLoggedIn():
-        addSet(session["userID"], request.args.get("setName"), "||||||||||||||||")
+        cardDb.addSet(session["userID"], request.args.get("setName"), "||||||||||||||||")
         return render_template("")
         ##addToLibrary(setID, session["userID"], request.args.get("setName"), "||||||||||||||||", session["userID"])
 
@@ -175,11 +179,24 @@ def new():
         return render_template("createSet.html")
     return render_template("index.html")
 
-@app.route("/createSet/", methods = ["POST"])
+@app.route("/createSet/", methods = ["POST","GET"])
 def createSet():
+    stre = "";
+    x = 0;
     if isLoggedIn():
-        addSet(session["userID"], request.form.get("setName"), (request.form.get("cardList"))["frontText"] + "||" + (request.form.get("cardList"))["imageUrl"] + "**" + (request.form.get("cardList"))["audioUrl"] + "**" + (request.form.get("cardList"))["backText"])
-        return cardDb.getSetID(request.form.get("setName"))
+        while(request.form.get("cardList[" + str(x) + "][frontText]") != None):
+            stre += request.form.get("cardList[" + str(x) + "][frontText]")
+            stre += "||"
+            stre += request.form.get("cardList[" + str(x) + "][backText]")
+            x += 1;
+            stre += "%%"
+        #print request.form.get("cardList[0][backText]")##THIS IS HOW YOU GET DATA
+        cardDb.addSet(session["userID"], request.form.get("setName"), stre)
+        #(request.form.get("cardList"))["frontText"] + "||" + (request.form.get("cardList"))["backText"])
+		# (request.form.get("cardList"))["imageUrl"] + "**" + (request.form.get("cardList"))["audioUrl"] + "**" add between front and back later
+        publicID = cardDb.getPublicSetID(session["userID"],request.form.get("setName"))
+        cardDb.downloadPublicSet(publicID, request.form.get("setName"), session["userID"])
+        return json.dumps(publicID)
     return render_template("index.html")
 
 @app.route("/search/", methods = ["GET"])

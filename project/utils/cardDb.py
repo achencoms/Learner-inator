@@ -24,13 +24,13 @@ def addSet(creatorID, setName, cardData): #presuming card data is a string for n
     c.execute(addSet)
     db.commit()
     db.close()
-    toggleVis(creatorID, getPublicSetID(creatorID, setName), 1)
+    ##toggleVis(creatorID, getPublicSetID(creatorID, setName), 1)
 
 def getPublicSetID(creatorID, setName):
     db = sqlite3.connect("data/main.db")
     c = db.cursor()
-    nice = "SELECT * FROM PublicSets WHERE creatorID = %d AND setName = %d;"%(creatorID, setName)
-    sel = c.execute(nice).fetchone()
+    cmd = "SELECT * FROM PublicSets WHERE creatorID = %d AND setName = '%s';"%(creatorID, setName)
+    sel = c.execute(cmd).fetchone()
     db.close()
     if sel == None:
         return False
@@ -186,7 +186,7 @@ def downloadPublicSet(setID, setName, uID):
     c.execute(addSet)
     db.commit()
     db.close()
-    addVis(uID, setID, vis)
+    #addVis(uID, setID, vis)
     
 def rmFromLibrary(uID, setID):
     db = sqlite3.connect("data/main.db")

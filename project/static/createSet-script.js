@@ -2,13 +2,17 @@ $(document).ready(function() {
     var cardCount = 1;
     $("#createSetForm").submit(function(e) {
         e.preventDefault();
+	
         setData = {};
-        setData["setName"] = $("#set-title").text();
+        //setData["setName"] = $("#setName").value;
+		setData["setName"] = document.getElementById("setName").value;
         cardList = [];
         for (i = 1; i < cardCount + 1; i++) {
             entry = {};
-            entry["frontText"] = $("#cardFront" + i).text();
-            entry["backText"] = $("#cardBack" + i).text();
+			entry["frontText"] = document.getElementById("cardFront" + i).value;
+			entry["backText"] = document.getElementById("cardBack" + i).value;
+            //entry["frontText"] = $("#cardFront" + i).value;
+            //entry["backText"] = $("#cardBack" + i).value;
             entry["imageName"] = "";
             entry["audioName"] = "";
             cardList.push(entry);
@@ -16,11 +20,11 @@ $(document).ready(function() {
         setData["cardList"] = cardList;
         $.ajax({
             type: "POST",
-            url: "/createSet",
+            url: "/createSet/",
             data: setData,
-            success: function(response) {
-                if (response != "false") { /*assuming that its a set id*/
-                    window.location = "/viewSet/" + response;
+            success: function(d) {
+                if (d != "False") { /*assuming that its a set id*/
+                    window.location = "/viewSet/" + d;
                 } else {
                     window.location = "/";
                 }
