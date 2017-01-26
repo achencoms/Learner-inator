@@ -148,9 +148,9 @@ def downloadPublicSet(setID, setName, uID):
     initializedData = "%%".join(splitCardData)
     cmd = "SELECT * FROM PrivateCards WHERE uID = %d;"%(uID)
     sel = c.execute(cmd).fetchone()
-    sets = sel.split("!!")
-    newSet = [setID, setName, initializedData]
-    "///".join(newSet)
+    sets = sel[1].split("!!")
+    newSet = [str(setID), setName, initializedData]
+    newSet = "///".join(newSet)
     sets.append(newSet)
     newSet = "!!".join(sets)
     addSet = "UPDATE PrivateCards SET sets = '%s' WHERE uID = %d;"%(newSet, uID)

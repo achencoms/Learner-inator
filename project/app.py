@@ -13,6 +13,7 @@ app.secret_key = "secrets"
 @app.route("/")
 def root():
     #print cardDb.downloadPublicSet(1, "batter", 30)
+    cardDb.downloadPublicSet(1, "pineapples", 1)
     return render_template('porque.html')
     # Turn this back on once /home/ is working
     """
@@ -87,8 +88,9 @@ def pullData(setID):
 def pushData(setID):
     if isLoggedIn():
         cardData = request.args.get("title") + "||" + request.args.get("desc") + "||" + "2.5" + "||" + "1" + "||"		+ "-1" + "||" + "||" + "9999" + "||" + "13" + "||" + "32"
-        newSetData = cardDb.getSetData(session['userID'],setID) + "%%" + cardData
-        cardDb.updateSet(session['userID'],setID,newSetData)
+        #newSetData = cardDb.getSetData(session['userID'],setID) + "%%" + cardData
+        cardDb.addSet(session['userID'],"pineapples", cardData)
+        #cardDb.updateSet(session['userID'],setID,newSetData)
 	return render_template("porque.html") 
 
 @app.route("/createData/<setID>/", methods = ['GET']) #just creating the set, we don't need to push setData as of now
