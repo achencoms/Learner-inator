@@ -2,4 +2,4 @@ Over the course of the project, we implemented the following design changes to b
 - Users cannot edit set names
 - Users cannot change passwords
 - Multi-language support not available
-- Sound bytes not supported
+- Uploaded sound and images not supported
