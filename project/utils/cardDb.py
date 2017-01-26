@@ -79,7 +79,11 @@ def getSetData(uID, setID):
         if a[0] == setID:
             return thing
     return ""
-    
+
+def addPrivateSet(setID, uID, setName, setData):
+    addSet(uID, setName, setData)
+    addToLibrary(setID, setName, setData, uID)
+
 def ownsSet(setID, uID): #pulled directly from Public table
     db = sqlite3.connect("data/main.db")
     c = db.cursor()
@@ -95,7 +99,7 @@ def ownsSet(setID, uID): #pulled directly from Public table
             return False
     return True
 
-def addToLibrary(setID, creatorID, setName, cardData, uID):
+def addToLibrary(setID, setName, cardData, uID):
     db = sqlite3.connect("data/main.db")
     c = db.cursor()
     cmd = "SELECT * FROM PrivateCards WHERE uID = %d;"%(uID)
@@ -116,7 +120,7 @@ def addToLibrary(setID, creatorID, setName, cardData, uID):
     "///".join(newSet)
     sets.append(newSet)
     newSet = "!!".join(sets)
-    addSet = "UPDATE PrivateCards SET(uID, sets) VALUES(%d,'%s');"%(uID, newSet)
+    addSet = "UPDATE PrivateCards SET sets = '%s' WHERE uID = %d;"%(newSet, uID)
     c.execute(addSet)
     db.commit()
     db.close()
@@ -148,8 +152,8 @@ def downloadPublicSet(setID, setName, uID):
     newSet = [setID, setName, initializedData]
     "///".join(newSet)
     sets.append(newSet)
-    newSet = "!!".join(sets)   
-    addSet = "UPDATE PrivateCards SET(uID, sets) VALUES(%d,'%s');"%(uID, newSet)
+    newSet = "!!".join(sets)
+    addSet = "UPDATE PrivateCards SET sets = '%s' WHERE uID = %d;"%(newSet, uID)
     c.execute(addSet)
     db.commit()
     db.close()
@@ -170,7 +174,7 @@ def rmFromLibrary(uID, setID):
             sets.remove(thing)
             break
     newSet = "!!".join(sets)
-    addSet = "UPDATE PrivateCards SET(uID, sets) VALUES(%d,'%s');"%(uID, newSet)
+    addSet = "UPDATE PrivateCards SET sets = '%s' WHERE uID = %d;"%(newSet, uID)
     c.execute(addSet)
     db.commit()
     db.close()
