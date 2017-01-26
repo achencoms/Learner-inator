@@ -105,12 +105,22 @@ back.onclick = function(){
 }
 
 window.onload = function(){
+	$.ajax({
+		url: '/pullSet/1/',
+		type: 'GET',
+		success: function(d){
+            console.log(d);
+			d = JSON.parse(d)
+			console.log(d['back']);
+			console.log(d['front']);
+			console.log(d);
+		}
+	});
 	var notify = document.createElement("div");
 	var saved = document.createTextNode("Your card has been saved in the set");
 	notify.appendChild(saved);
 	notify.id = "notify";
 	document.body.appendChild(notify);
-	body.appendChild(son);
 }
 
 save.onclick = function(){

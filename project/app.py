@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, session, url_for, redirect
 from utils import userDb, cardDb
-import hashlib
+import hashlib, json
 
 app = Flask(__name__)
 app.secret_key = "secrets"
@@ -61,7 +61,7 @@ def set(setID):
         cardDb.addSet()
 '''
 
-@app.route("/pullData/<setID>/")
+@app.route("/pullData/<setID>/", methods = ['GET'])
 def pullData(setID):
     if isLoggedIn():
         tuple = cardDb.getSetData(session['userID'],setID)
@@ -81,34 +81,35 @@ def pullData(setID):
 
         #return format : {setName, setID, [<cardData_dict>,...]}
         #<cardData_dict> = {front, back, interCt, interval, cardYr, cardMn, cardDt, cardEF}
-        return dict
+        print dict
+        return json.dumps(dict)
 
-@app.route("/pullSet/<setID>/")
+@app.route("/pullSet/<setID>/", methods =['GET'])
 def pullSet(setID):
     if isLoggedIn():
-        tuple = cardDb.getPublicSet(setID)
+        tuple = cardDb.getPublicSet(int(setID))
         #tuple : (setID, creatorID, setName, cardData)
         dict = {}
         dict["setName"] = tuple[2]
         dict["setID"] = tuple[0]
-        dict["authorName"] = userDb.getUserName(tuple[1])
+        dict["authorName"] = userDb.getUsername(tuple[1])
         dict["authorID"] = tuple[1]
         rawSetData = tuple[3].split("%%")
         parsedSetData = []
         for cardData in rawSetData:
             parsedSetData.append(parseCardData(cardData))
         dict["cards"] = parsedSetData
-        return dict
-                                            
+        print dict
+        return json.dumps(dict)                                          
 
 @app.route("/pushData/<setID>/", methods = ['GET'])
 def pushData(setID):
     if isLoggedIn():
         cardData = request.args.get("title") + "||" + request.args.get("desc") + "||" + "2.5" + "||" + "1" + "||" + "-1" + "||" + "9999" + "||" + "13" + "||" + "32"
         newSetData = cardDb.getSetData(3,1) + "%%" + cardData
-        print "WOO"
         print cardDb.getSetData(3,1)
         cardDb.updateSet(3,1,newSetData)
+        print cardDb.getPublicSet(1)
         #cardDb.updateSet(session['userID'],setID,newSetData)
 	return render_template("porque.html") 
 
@@ -136,7 +137,8 @@ def hash(unhashed):
 
 def parseCardData(cardDataString):
     cardDataList = cardDataString.split("||")
-    cardDataDict = {"front":cardDataList[0].split("**"),"back":cardDataList[1].split("**"),"interCt":int(cardDataList[2]),"interval":int(cardDataList[3]),"cardYr":int(cardDataList[4]),"cardMn":int(cardDataList[5]),"cardDt":int(cardDataList[6]),"cardEf":float(cardDataList[7])}
+    cardDataDict = {"front":cardDataList[0].split("**"),"back":cardDataList[1].split("**"),"interCt":int(cardDataList[3]),"interval":int(cardDataList[4]),"cardYr":int(cardDataList[6]),"cardMn":int(cardDataList[7]),"cardDt":int(cardDataList[8]),"cardEf":float(cardDataList[2])}
+    return cardDataDict
 
 if __name__ == "__main__":
     app.debug = True

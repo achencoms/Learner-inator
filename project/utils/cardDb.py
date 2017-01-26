@@ -48,7 +48,7 @@ def ownsPublicSet(setID, uID): #can verify from getSets
 def getPublicSet(setID):
     db = sqlite3.connect("data/main.db")
     c = db.cursor()
-    cmd = "SELECT * FROM PublicCards WHERE setID = %d;"%(setID)
+    cmd = "SELECT * FROM PublicSets WHERE setID = %d;"%(setID)
     sel = c.execute(cmd).fetchone()
     db.close()
     if sel == None:
