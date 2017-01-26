@@ -111,8 +111,8 @@ window.onload = function(){
 		success: function(d){
             console.log(d);
 			d = JSON.parse(d)
-			console.log(d['back']);
-			console.log(d['front']);
+			//console.log(d['cards']['0']['front'][0]);
+			console.log(d['cards'][0]["front"][0]);
 			console.log(d);
 		}
 	});
