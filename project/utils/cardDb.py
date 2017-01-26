@@ -89,8 +89,8 @@ def addToPublicSet(setID, uID, cardData):#owner editing (will morph id) #NOT DON
 
         
 def getPublicSet(setID):
-    if (not isPublic(setID)):
-        return None
+    ##if (not isPublic(setID)):
+       ## return None
     db = sqlite3.connect("data/main.db")
     c = db.cursor()
     cmd = "SELECT * FROM PublicSets WHERE setID = %d;"%(setID)

@@ -137,7 +137,7 @@ def pullSet(setID):
 
 @app.route("/pullSet1/<setID>/", methods =['GET'])
 def pullSet1(setID):
-    tuple = cardDb.getPublicSet(int(setID))
+    tuple = cardDb.getPublicSet(int(setID)) # getPublicSet needs to be fixed or accounted for
     #tuple : (setID, creatorID, setName, cardData)
     dict = {}
     dict["setName"] = tuple[2]
@@ -147,12 +147,12 @@ def pullSet1(setID):
     rawSetData = tuple[3].split("%%")
     parsedSetData = {}
     increment = 0
+    print rawSetData
     for cardData in rawSetData:
-        parsedSetData[str(increment)] = parseCardDataFB(cardData)
-        increment += 1
+		if cardData != '':
+			parsedSetData[str(increment)] = parseCardDataFB(cardData)
+			increment += 1
     dict["cards"] = parsedSetData
-    print "whose"
-    print dict
     return json.dumps(dict)                                     
 	
 

@@ -95,7 +95,7 @@ function pls(){
 back.onclick = function(){
 	spin += 180;
 	body.style.transform = "rotateY(" + spin + "deg)";
-	body.style.transition = "3s";
+	body.style.transition = "1s";
 	setTimeout(function(){if(spin % 360 != 0){
 		    $.ajax({
 			   url: '/data',
@@ -121,12 +121,12 @@ back.onclick = function(){
 	else{
 		f.nodeValue = cards['cards'][count.toString()]["front"][0];
 		front.style.transform = "rotateY(0deg)";
-	}}, 900);
+	}}, 300);
 }
 
 window.onload = function(){
 	$.ajax({
-		url: '/pullSet1/5/',
+		url: '/pullSet1/1/',
 		type: 'GET',
 		success: function(d){
             console.log(d);
@@ -135,11 +135,13 @@ window.onload = function(){
 			body.appendChild(front);
 			front.style.fontSize = "30px";
 			f.nodeValue = cards['cards'][count.toString()]["front"][0];
+			console.log("this is the best");
+			console.log(window.location.href.split("/"));
 			/*for(i = 0; i < Object.keys(d['cards']).length; i++){
 				console.log(d['cards'][i.toString()]["front"][0]);
 				console.log(d['cards'][i.toString()]["back"][0]);
 			}
-			//console.log(window.location.href.split("/"))
+			console.log(window.location.href.split("/"))
 			console.log(d['cards'][0]["front"][0]);
 			console.log(d);*/
 		}

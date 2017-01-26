@@ -25,8 +25,8 @@ $(document).ready(function() {
             type: "POST",
             url: "/register/",
             data: $(this).serialize(),
-            success: function(response) {
-                if (response == "true") {
+            success: function(response){
+                if (response == "False") {
                     $("#registerFormButton").html("Signing Up ...");
                     /*setTimeout("window.location. = '/home/';", 4000);*/
                     window.location = "/home/";
