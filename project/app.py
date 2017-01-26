@@ -88,7 +88,7 @@ def pullData(setID):
 @app.route("/pullData1/<setID>/")
 def pullData1(setID):
     if isLoggedIn():
-        tuple = cardDb.getSetData(session['userID'],setID)
+        tuple = cardDb.getSetData(3,setID)
         #tuple : (setName, setID, <setData>)
         rawSetData = tuple[2].split("%%")
         parsedSetData = {}
@@ -114,7 +114,6 @@ def pullSet(setID):
         for cardData in rawSetData:
             parsedSetData.append(parseCardData(cardData))
         dict["cards"] = parsedSetData
-        print dict
         return json.dumps(dict)                                          
 
 @app.route("/pushData/<setID>/", methods = ['GET'])
@@ -158,7 +157,6 @@ def parseCardData(cardDataString):
 def parseCardDataFB(cardDataString):
     cardDataList = cardDataString.split("||")
     cardDataDict = {"front":cardDataList[0].split("**"),"back":cardDataList[1].split("**")}
-    return cardDataDict
 
 if __name__ == "__main__":
     app.debug = True
