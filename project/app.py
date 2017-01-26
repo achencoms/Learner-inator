@@ -49,6 +49,10 @@ def register():
         session['userID'] = userDb.getUserID(username)
         return "true"
 
+@app.route("/viewSet/setID")
+def viewSet(setID):
+    return render_template("viewSet.html")
+
 #@app.route("/createSet/")
 #def create():
 #    if isLoggedIn():
