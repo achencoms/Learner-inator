@@ -162,13 +162,13 @@ def updateSet(uID, setID, newSetData): #upon close of session, or for editing
         return False
     sets = sel[1].split("!!")
     print newSetData
-    for thing in sets:
-        a = thing.split("///")
+    for x in range(0, len(sets)):
+        a = sets[x].split("///")
         print a[0]
         print "This is setID" + setID
         print "This is thing:" + thing
         if a[0] == setID:
-            thing = newSetData
+            sets[x] = newSetData
             break;	
     newSets = "!!".join(sets)
     print newSets
