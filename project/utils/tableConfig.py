@@ -14,6 +14,8 @@ c.execute(users)
 cards = "CREATE TABLE PrivateCards(uID INTEGER PRIMARY KEY AUTOINCREMENT, sets TEXT);"
 c.execute(cards)
 
+visible = "CREATE TABLE VISIBILITY(uID INTEGER, setID INTEGER, vis INTEGER);"
+c.execute(visible)
 
 db.commit()
 db.close()
