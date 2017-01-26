@@ -1,0 +1,124 @@
+/* Move down content because we have a fixed navbar that is 50px tall */
+
+/*Color Palette 1: https://coolors.co/bfd7ea-91aec1-508ca4-0a8754-004f2d*/
+/*Color Palette 2: https://coolors.co/60492c-f9ebe0-208aae-2a6b4b-0d2149*/
+/*Color Palette 3: https://coolors.co/c33c54-37718e-8ee3ef-2a6b4b-aef3e7*/
+/*Color Palette 4: https://coolors.co/cbd4c2-fffcff-247ba0-2a6b4b-c3b299*/
+
+
+.btn-primary {
+  /*background-color: #C33C54;*/
+}
+
+body {
+    padding-top: 40px;
+    /*padding-bottom: 20px;*/
+}
+
+.navbar {
+    background-color: #2A6B4B;
+}
+
+#top-navbar {
+    -webkit-box-shadow: 0px 3px 0px 0px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: 0px 3px 0px 0px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 3px 0px 0px rgba(0, 0, 0, 0.25);
+}
+
+#nav_logo {
+    max-width: 30px;
+    max-height: 30px;
+}
+
+#search-button {
+    margin-left: -4px;
+}
+
+#study-app {
+  height: 95vh;
+}
+
+#title-bar {
+  margin: 5vh 0;
+}
+
+#set-title {
+  display: inline-block;
+  margin: 1% 0;
+}
+
+#title-icons {
+  display: inline-block;
+}
+
+.card-arrow {
+  background-color: #D3D3D3;
+  height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2em;
+}
+
+.card-arrow i {
+  color: white;
+}
+
+#card {
+  background-color: grey;
+  height: 60vh;
+}
+
+#card-progress {
+  margin: 5vh 0;
+}
+
+.progress {
+  margin: 0;
+}
+
+.progress-bar {
+  min-width: 2em;
+}
+
+.modal-dialog {
+  margin-top: 0;
+  margin-bottom: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.modal.fade .modal-dialog {
+  transform: translate(0, -100%);
+}
+
+.modal.in .modal-dialog {
+  transform: translate(0, 0);
+}
+
+.vertical-center {
+    min-height: 100%;
+    /* Fallback for browsers do NOT support vh unit */
+    min-height: 100vh;
+    /* These two lines are counted as one :-)       */
+    display: flex;
+    align-items: center;
+}
+
+footer.navbar {
+    color: white;
+    margin-bottom: 0px;
+}
+
+footer .container {
+    height: 50px;
+    display: flex;
+    align-items: center;
+
+}
+
+#copyright {
+    float: left;
+}
