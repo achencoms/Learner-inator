@@ -88,9 +88,6 @@ def pushData(setID):
     if isLoggedIn():
         cardData = request.args.get("title") + "||" + request.args.get("desc") + "||" + "2.5" + "||" + "1" + "||"		+ "-1" + "||" + "||" + "9999" + "||" + "13" + "||" + "32"
         newSetData = cardDb.getSetData(session['userID'],setID) + "%%" + cardData
-        print newSetData
-        print setID
-        print session['userID']
         cardDb.updateSet(session['userID'],setID,newSetData)
 	return render_template("porque.html") 
 
