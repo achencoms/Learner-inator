@@ -21,12 +21,14 @@ $(document).ready(function() {
 
     $("#registerForm").submit(function(e) {
         e.preventDefault();
+        var keep = $("#registerForm").serialize().split("&")[0]
+		var keepo = keep.split("=");
         $.ajax({
             type: "POST",
             url: "/register/",
-            data: $(this).serialize(),
-            success: function(response){
-                if (response == "False") {
+            data: keepo[1],
+            //success: function(d){
+                if (d == "False") {
                     $("#registerFormButton").html("Signing Up ...");
                     /*setTimeout("window.location. = '/home/';", 4000);*/
                     window.location = "/home/";

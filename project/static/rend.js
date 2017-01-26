@@ -45,7 +45,8 @@ function pls(){
 	if (count >= Object.keys(cards['cards']).length) count = 0;
 	console.log(count);
 	setTimeout(function(){body2.style.boxShadow = "2px 2px 2px black";}, 2000);
-	if(spin % 360 != 0 && spin != 0) body2.style.transform = "rotateY(180deg)";
+	if(spin % 360 != 0) body2.style.transform = "rotateY(180deg)";
+	spin = 0;
     body2.style.left = "50%";
 	body2.style.top = "35%";
 	body2.style.height = "40%";

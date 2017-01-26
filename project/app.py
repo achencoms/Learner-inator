@@ -80,6 +80,11 @@ def set(setID):
         cardDb.addSet()
 '''
 
+@app.route("/library/", methods = ["GET"])
+def getSoot():
+	sets = cardDb.getAllSets();
+	return render_template("mySets.html", setter = sets)
+
 @app.route("/pullData/<setID>/", methods = ['GET'])
 def pullData(setID):
     if isLoggedIn():
