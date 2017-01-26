@@ -1,0 +1,3 @@
+Over the course of the project, we implemented the following design changes to be able to produce a viable product in time:
+- Users cannot edit set names
+- Users cannot change passwords
