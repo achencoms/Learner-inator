@@ -9,6 +9,20 @@ var spin = 0;
 var back = document.getElementById("front");
 var next = document.getElementById("next");
 
+var cards;
+
+var brow = document.getElementsByClassName('btn-secondary');
+
+for(var i = 0; i< brow.length; i++){
+	brow[i].onclick = pls;
+}
+
+//permanent nodes
+var front = document.createElement('p');
+//var backs = document.createElement('p');
+var f = document.createTextNode("");
+//var b = document.createTextNode("");
+front.appendChild(f);
 //global variable counter for current set
 var count = 0;
 
@@ -26,9 +40,12 @@ var dau = document.createElement('p');
 var poles = document.createTextNode("I AM AN USERID");
 dau.appendChild(poles);
 
-next.onclick = function(){
-	setTimeout(function(){body2.style.boxShadow = "2px 2px 2px black";}, 3000);
-	if(spin % 360 == 0 && spin != 0) body2.style.transform = "rotateY(180deg)"
+function pls(){
+	count += 1;
+	if (count >= Object.keys(cards['cards']).length) count = 0;
+	console.log(count);
+	setTimeout(function(){body2.style.boxShadow = "2px 2px 2px black";}, 2000);
+	if(spin % 360 != 0 && spin != 0) body2.style.transform = "rotateY(180deg)";
     body2.style.left = "50%";
 	body2.style.top = "35%";
 	body2.style.height = "40%";
@@ -37,27 +54,28 @@ next.onclick = function(){
 	body2.removeAttribute("right");
 	body2.style.zIndex = 3;
 	body2.style.display = "flex";
-	body2.style.backgroundColor = "#ededed";
-	body2.style.transition = "2s";
-	body2.appendChild(mama);
+	body2.style.backgroundColor = "#76A2C1";
+	body2.style.transition = "1s";
+	body2.appendChild(front);
+	f.nodeValue = cards['cards'][count.toString()]["front"][0];
 	body2.style.display = "flex";
 	setTimeout(function(){
 	body.innerHTML = "";
-	body.style.backgroundColor = "lightgray";
+	body.style.backgroundColor = "#345CA8";
 	body.style.right = "0";
 	body.style.left= "40%";
 	body.style.top = "30%";
 	body.style.height = "30%";
 	body.style.width = "20%";
-	body.style.transition = "2s";
+	body.style.transition = "1s";
 	body.style.zIndex = 2;
 	body.innerHTML = "";
 	},1000);
-	setTimeout(function(){body = [body2, body2 = body][0]}, 4000);
+	setTimeout(function(){body = [body2, body2 = body][0]}, 2000);
 	
 }
 
-img.onclick = function (){
+/*img.onclick = function (){
 	var i = document.getElementById("mage").value;
 	$.ajax({
 		url: '/data',
@@ -72,18 +90,17 @@ img.onclick = function (){
 			place.appendChild(pos);
 		}
 	});
-}
+}*/
 
 back.onclick = function(){
 	spin += 180;
 	body.style.transform = "rotateY(" + spin + "deg)";
 	body.style.transition = "3s";
-	setTimeout(function(){body.innerHTML = "";},800);
 	setTimeout(function(){if(spin % 360 != 0){
 		    $.ajax({
 			   url: '/data',
 			   type: 'GET',
-			   data: "moo",
+			   data: "no data",
 			   success: function(d){
 					//d = JSON.parse(d);
 					/*mama.id = "yes";
@@ -95,16 +112,16 @@ back.onclick = function(){
 					body.insertBefore(edi, body.childNodes[0]);
 					card2 = edi;
 					}
-					mama.style.transform = "rotateY(180deg)";
+					front.style.transform = "rotateY(180deg)";
 				    body.appendChild(mama);*/
 			}});
-			mama.style.transform = "rotateY(180deg)";
-			body.appendChild(mama);
+			f.nodeValue = cards['cards'][count.toString()]["back"][0];
+			front.style.transform = "rotateY(180deg)";
 	}
 	else{
-		body.appendChild(dau);
-	}
-	}, 900);
+		f.nodeValue = cards['cards'][count.toString()]["front"][0];
+		front.style.transform = "rotateY(0deg)";
+	}}, 900);
 }
 
 window.onload = function(){
@@ -113,16 +130,18 @@ window.onload = function(){
 		type: 'GET',
 		success: function(d){
             console.log(d);
-			d = JSON.parse(d)
-			d['cards'][count.toString()]["front"][count];
-			d['cards'][count.toString()]["back"][count];
+			d = JSON.parse(d);
+			cards = d;
+			body.appendChild(front);
+			front.style.fontSize = "30px";
+			f.nodeValue = cards['cards'][count.toString()]["front"][0];
 			/*for(i = 0; i < Object.keys(d['cards']).length; i++){
 				console.log(d['cards'][i.toString()]["front"][0]);
 				console.log(d['cards'][i.toString()]["back"][0]);
-			}*/
+			}
 			//console.log(window.location.href.split("/"))
 			console.log(d['cards'][0]["front"][0]);
-			console.log(d);
+			console.log(d);*/
 		}
 	});
 	var notify = document.createElement("div");
