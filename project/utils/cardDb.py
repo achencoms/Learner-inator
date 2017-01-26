@@ -170,15 +170,11 @@ def updateSet(uID, setID, newSetData): #upon close of session, or for editing
     marker = 0
     for x in range(0, len(sets)):
         a = sets[x].split("///")
-        print a[0]
-        print "This is setID" + setID
-        print "This is thing:" + thing
         if a[0] == setID:
             marker = x
             break;	
         sets[marker] = newSetData
     newSets = "!!".join(sets)
-    print newSets
     addSet = "UPDATE PrivateCards SET sets = '%s' WHERE uID = %d;"%(newSets, uID)
     c.execute(addSet)
     db.commit()
