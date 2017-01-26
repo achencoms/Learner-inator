@@ -16,7 +16,7 @@
 {% endblock collapsedList %}
 
 {% block navButtons %}
-<li><a href="/">My Sets</a></li>
+<li><a href="/library">All Sets</a></li>
 <li><a href="/settings">Settings</a></li>
 <li><a href="/logout">Log Out</a></li>
 {% endblock navButtons %}
@@ -50,6 +50,7 @@
         </div>
     </div>
 	<div class ="container" align="center">
+	Rate the card in order to move to the next card!<br>
 	<button class="btn btn-secondary"> 0 </button>
 	<button class="btn btn-secondary"> 1 </button>
 	<button class="btn btn-secondary"> 2 </button>
@@ -57,7 +58,7 @@
 	<button class="btn btn-secondary"> 4 </button>
 	<button class="btn btn-secondary"> 5 </button>
 	<button class="btn btn-primary" id = "front">Turn the flashcard</button>
-	<button class="btn btn-primary" id ="save"> Save</button> 
+	<button class="btn btn-primary" id ="save" style ="display:none;"> Save</button> 
 	</div>
     <div id="card-progress" class="row">
         <div class="progress">

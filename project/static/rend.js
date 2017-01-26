@@ -8,7 +8,7 @@ var place = document.getElementById("picture");
 var spin = 0;
 var back = document.getElementById("front");
 var next = document.getElementById("next");
-
+var num = window.location.href.split("/")[4]
 var cards;
 
 var brow = document.getElementsByClassName('btn-secondary');
@@ -127,17 +127,15 @@ back.onclick = function(){
 
 window.onload = function(){
 	$.ajax({
-		url: '/pullSet1/1/',
+		url: '/pullSet1/' + num + "/",
 		type: 'GET',
 		success: function(d){
-            console.log(d);
 			d = JSON.parse(d);
 			cards = d;
 			body.appendChild(front);
 			front.style.fontSize = "30px";
 			f.nodeValue = cards['cards'][count.toString()]["front"][0];
 			console.log("this is the best");
-			console.log(window.location.href.split("/"));
 			/*for(i = 0; i < Object.keys(d['cards']).length; i++){
 				console.log(d['cards'][i.toString()]["front"][0]);
 				console.log(d['cards'][i.toString()]["back"][0]);
