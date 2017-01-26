@@ -37,7 +37,7 @@ def rmSet(setID):
 def ownsPublicSet(setID, uID): #can verify from getSets
     db = sqlite3.connect("data/main.db")
     c = db.cursor()
-    rmSet = "SELECT * FROM PublicSets WHERE setID = '%s' AND uID = %d;"%(setID, uID)
+    rmSet = "SELECT * FROM PublicSets WHERE setID = '%s' AND creatorID = %d;"%(setID, uID)
     sel = c.execute(rmSet).fetchone()
     db.close()
     if sel == None:
@@ -45,6 +45,26 @@ def ownsPublicSet(setID, uID): #can verify from getSets
     else:
         return True
 
+def addToPublicSet(setID, uID, cardData):
+    if ownsPublicSet(setID, uID):
+        db = sqlite3.connect("data/main.db")
+        c = db.cursor()
+        rmSet = "SELECT * FROM PublicSets WHERE setID = '%s' AND uID = %d;"%(setID, uID)
+        sel = c.execute(rmSet).fetchone()
+        if sel == None:
+            return False
+        else:
+            sets = sel[2].split("!!")
+            sets.append(cardData)
+            newSets = "!!".join(sets)
+            addSet = "UPDATE PublicSets SET sets = '%s' WHERE setID = '%s';"%(newSets, setID)
+            c.execute(addSet)
+            db.commit()
+        db.close()
+    else:
+        return False
+
+        
 def getPublicSet(setID):
     db = sqlite3.connect("data/main.db")
     c = db.cursor()
@@ -54,7 +74,9 @@ def getPublicSet(setID):
     if sel == None:
         return None
     return sel    
-    
+
+def getPublicSetData(setID):
+    return getPublicSet[2]
     
 #PrivateCards Table -----------------------------------------------------
 def getSets(uID):
