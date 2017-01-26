@@ -120,12 +120,13 @@ def downloadPublicSet(setID, setName, uID):
         card = card + "||32"#no initial values
     initializedData = "%%".join(splitCardData)
     cmd = "SELECT * FROM PrivateCards WHERE uID = %d;"%(uID)
-    sel = c.execute(cmd).fetchone()
-    sets = sel[1].split("!!")
     newSet = [str(setID), setName, initializedData]
     newSet = "///".join(newSet)
-    sets.append(newSet)
-    newSet = "!!".join(sets)
+    sel = c.execute(cmd).fetchone()
+    sets = sel[1].split("!!")
+    if (len(sets) != 0):
+        sets.append(newSet)
+        newSet = "!!".join(sets)
     addSet = "UPDATE PrivateCards SET sets = '%s' WHERE uID = %d;"%(newSet, uID)
     c.execute(addSet)
     db.commit()
