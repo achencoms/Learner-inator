@@ -173,8 +173,14 @@ def createData(setID):
 @app.route("/new/", methods = ["POST"])
 def new():
     if isLoggedIn():
-        addSet(session["userID"], request.form.get("setName"), (request.form.get("cardList"))["frontText"] + "||" + (request.form.get("cardList"))["imageUrl"] + "**" + (request.form.get("cardList"))["audioUrl"] + "**" + (request.form.get("cardList"))["backText"])
         return render_template("createSet.html")
+
+@app.route("/createSet/", methods = ["POST"])
+def createSet():
+    if isLoggedIn():
+        addSet(session["userID"], request.form.get("setName"), (request.form.get("cardList"))["frontText"] + "||" + (request.form.get("cardList"))["imageUrl"] + "**" + (request.form.get("cardList"))["audioUrl"] + "**" + (request.form.get("cardList"))["backText"])
+        return True
+    
 
 @app.route("/search/", methods = ["GET"])
 def search():
