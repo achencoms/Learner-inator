@@ -167,10 +167,11 @@ def updateSet(uID, setID, newSetData): #upon close of session, or for editing
         return False
     sets = sel[1].split("!!")
     print newSetData
+    marker = 0
     for x in range(0, len(sets)):
         a = sets[x].split("///")
         if a[0] == str(setID):
-            sets[x] = newSetData
+            marker = x
             break;
     print sets			
     newSets = "!!".join(sets)
