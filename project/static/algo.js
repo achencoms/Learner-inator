@@ -51,6 +51,14 @@ var updateSet = function(response){
     
     algoPush(response);
 
+    sendToServer();
+    
+    return getFirstCardData;
+    
+}
+
+var sendToServer = function(){
+    
     var toServer = dataBank[active].concat(dataBank[inactive]);
 
     $.ajax({
@@ -63,7 +71,6 @@ var updateSet = function(response){
 	}
     });
 
-    return getFirstCardData;
 }
 
 document.getElementById("next").addEventListener("click", updateSet);//next card
@@ -79,10 +86,19 @@ var getFirstCardData = function(){
 //in case they dumb
 var quidditched(){
 
+    for (card in dataBank[active]){
+	var days = card[interval]; // Days you want to add
+	var date = new Date();
+	var last = new Date(date.getTime() + (days * 24 * 60 * 60 * 1000));
+	card[cardDt] = last.getDate();
+	card[cardMn] = last.getMonth();
+	card[cardYr] = last.getFullYear();
+	dataBank[inactive].push(card);
+    }
+    sendToServer();
+    
 }
 
-//interYr:
-//load by next up
 //DATABANK [<CARD>, <CARD>, <CARD>]
 //<CARD>'s are dictionaries
 //<CARD> keys are [data, interCt, interval, cardYr, cardMn, cardDt, cardEF]
