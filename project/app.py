@@ -12,8 +12,7 @@ app.secret_key = "secrets"
 
 @app.route("/")
 def root():
-    #print cardDb.downloadPublicSet(1, "batter", 30)
-    cardDb.downloadPublicSet(1, "pineapples", 1)
+    #cardDb.downloadPublicSet(1,"pineapples", 3)
     return render_template('porque.html')
     # Turn this back on once /home/ is working
     """
@@ -105,9 +104,11 @@ def pullSet(setID):
 @app.route("/pushData/<setID>/", methods = ['GET'])
 def pushData(setID):
     if isLoggedIn():
-        cardData = request.args.get("title") + "||" + request.args.get("desc") + "||" + "2.5" + "||" + "1" + "||"		+ "-1" + "||" + "||" + "9999" + "||" + "13" + "||" + "32"
-        #newSetData = cardDb.getSetData(session['userID'],setID) + "%%" + cardData
-        cardDb.addSet(session['userID'],"pineapples", cardData)
+        cardData = request.args.get("title") + "||" + request.args.get("desc") + "||" + "2.5" + "||" + "1" + "||" + "-1" + "||" + "9999" + "||" + "13" + "||" + "32"
+        newSetData = cardDb.getSetData(3,1) + "%%" + cardData
+        print "WOO"
+        print cardDb.getSetData(3,1)
+        cardDb.updateSet(3,1,newSetData)
         #cardDb.updateSet(session['userID'],setID,newSetData)
 	return render_template("porque.html") 
 

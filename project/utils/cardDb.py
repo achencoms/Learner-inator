@@ -73,10 +73,15 @@ def getSetData(uID, setID):
     cmd = "SELECT * FROM PrivateCards WHERE uID = %d;"%(uID)
     sel = c.execute(cmd).fetchone()
     db.close()
+    print "this is sel"
+    print sel
     sets = sel[1].split("!!")
     for thing in sets:
         a = thing.split("///")
-        if a[0] == setID:
+        print "this is a thing"
+        print thing
+        print a
+        if a[0] == str(setID):
             return thing
     return ""
 
@@ -158,18 +163,16 @@ def updateSet(uID, setID, newSetData): #upon close of session, or for editing
     c = db.cursor()
     cmd = "SELECT * FROM PrivateCards WHERE uID = %d;"%(uID)
     sel = c.execute(cmd).fetchone()
-    if sel[0] == None:
+    if sel == None:
         return False
     sets = sel[1].split("!!")
     print newSetData
     for x in range(0, len(sets)):
         a = sets[x].split("///")
-        print a[0]
-        print "This is setID" + setID
-        print "This is thing:" + thing
-        if a[0] == setID:
+        if a[0] == str(setID):
             sets[x] = newSetData
-            break;	
+            break;
+    print sets			
     newSets = "!!".join(sets)
     print newSets
     addSet = "UPDATE PrivateCards SET sets = '%s' WHERE uID = %d;"%(newSets, uID)
