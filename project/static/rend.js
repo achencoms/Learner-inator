@@ -44,8 +44,10 @@ function pls(){
 	count += 1;
 	if (count >= Object.keys(cards['cards']).length) count = 0;
 	console.log(count);
-	setTimeout(function(){body2.style.boxShadow = "2px 2px 2px black";}, 2000);
-	if(spin % 360 != 0) body2.style.transform = "rotateY(180deg)";
+	setTimeout(function(){body2.style.boxShadow = "2px 2px 2px black";}, 1500);
+	if(spin % 360 != 0) {
+		body2.style.transform = "rotateY(95deg)";
+	}
 	spin = 0;
     body2.style.left = "50%";
 	body2.style.top = "35%";
@@ -72,7 +74,7 @@ function pls(){
 	body.style.zIndex = 2;
 	body.innerHTML = "";
 	},1000);
-	setTimeout(function(){body = [body2, body2 = body][0]}, 2000);
+	setTimeout(function(){body = [body2, body2 = body][0]}, 1500);
 	
 }
 
